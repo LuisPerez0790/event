@@ -1,0 +1,83 @@
+{
+    "name": "Event",
+    "fields": [
+        {
+            "fieldName": "startDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "acronym",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "venue",
+            "otherEntityName": "venue",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "site",
+            "otherEntityName": "site",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "activity",
+            "otherEntityName": "activity",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "languages",
+            "otherEntityName": "eventLanguage",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cms",
+            "otherEntityName": "cMS",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "site",
+            "relationshipName": "eventUser",
+            "otherEntityName": "eventUser",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20180720154257",
+    "entityTableName": "event",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}

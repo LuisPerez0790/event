@@ -1,0 +1,135 @@
+entity EventUser{
+	name String,
+    lastName String,
+    userName String,
+    institution String,
+    position String,
+    email String,
+    description String,
+    imageUrl String,
+    userType UserType  
+}
+
+entity Event {
+	startDate Instant,
+	endDate Instant,
+    url String,
+    imageUrl String,
+	enabled Boolean,
+	acronym String
+}
+
+entity CMS{
+	fileId Long
+}
+
+entity Venue{
+	name String,
+    address String,
+    imageUrl String,
+    phone String,
+    url String,
+    googleMaps String,
+    description String
+}
+
+entity EventLanguage{
+	name String,
+    description String,
+    address String,
+    language Language
+}
+
+enum Language{
+	ENGLISH, FRENCH, SPANISH, PORTUGUESE, GERMAN, ITALIAN, RUSSIAN
+}
+
+enum UserType{
+	EXPOSITOR, PARTICIPANT, ORGANIZER
+}
+
+enum PageStatus{
+	PUBLISHED, DELETED, NOT_PUBLISHED
+}
+
+entity Activity{
+	startDate Instant,
+	endDate Instant,
+    imageUrl String,
+    enabled Boolean,
+}
+
+entity ActivityLanguage{
+	name String,
+    description String,
+    address String,
+    language Language
+}
+
+entity Site{
+	acronym String,
+    date Instant,
+	status Boolean,
+	title String,
+	subtitle TextBlob,
+    status PageStatus
+}
+
+entity SiteColorPalette{
+	primary String,
+	secondary String,
+	inverse String,
+	complementary String
+}
+
+entity SitePage {
+	creationDate Instant,
+	updatedDate Instant,
+	menuEntry String,
+	order Long,
+	status Boolean,
+	slug String
+}
+
+entity SitePageLanguage{
+	exceptPage TextBlob,
+	content TextBlob,
+	title String,
+    language Language
+	}
+
+entity SiteFooter {
+	address TextBlob,
+	contact TextBlob,
+	links TextBlob,
+	moreContent TextBlob,
+	googleMaps String
+}
+
+relationship OneToMany{
+	Event{activity} to Activity
+    Event{languages} to EventLanguage
+    Activity{languages} to ActivityLanguage
+    Site{sitePage} to SitePage
+    SitePage{page} to SitePageLanguage
+    Event{cms} to CMS
+    Activity{cms} to CMS
+    EventUser{cms} to CMS
+    SitePage{cms} to CMS
+}
+
+relationship OneToOne{
+ 	Event{venue} to Venue
+	Event{site} to Site
+	Site{palette} to SiteColorPalette
+    Site{footer} to SiteFooter
+}
+
+relationship ManyToMany{
+	Event{eventUser} to EventUser{site}
+}
+
+dto * with mapstruct
+service all with serviceImpl
+paginate * with pagination
+microservice * with event

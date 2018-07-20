@@ -1,0 +1,51 @@
+{
+    "name": "Activity",
+    "fields": [
+        {
+            "fieldName": "startDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "imageUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "event",
+            "otherEntityName": "event",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "languages",
+            "otherEntityName": "activityLanguage",
+            "otherEntityRelationshipName": "activity"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cms",
+            "otherEntityName": "cMS",
+            "otherEntityRelationshipName": "activity"
+        }
+    ],
+    "changelogDate": "20180720154301",
+    "entityTableName": "activity",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}

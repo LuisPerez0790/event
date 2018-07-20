@@ -1,0 +1,42 @@
+{
+    "name": "SitePageLanguage",
+    "fields": [
+        {
+            "fieldName": "exceptPage",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "language",
+            "fieldType": "Language",
+            "fieldValues": "ENGLISH,FRENCH,SPANISH,PORTUGUESE,GERMAN,ITALIAN,RUSSIAN"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "sitePage",
+            "otherEntityName": "sitePage",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180720154306",
+    "entityTableName": "site_page_language",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}

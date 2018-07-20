@@ -1,0 +1,61 @@
+{
+    "name": "Site",
+    "fields": [
+        {
+            "fieldName": "acronym",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "PageStatus",
+            "fieldValues": "PUBLISHED,DELETED,NOT_PUBLISHED"
+        },
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subtitle",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "palette",
+            "otherEntityName": "siteColorPalette",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "site"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "footer",
+            "otherEntityName": "siteFooter",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "site"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "sitePage",
+            "otherEntityName": "sitePage",
+            "otherEntityRelationshipName": "site"
+        }
+    ],
+    "changelogDate": "20180720154303",
+    "entityTableName": "site",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}

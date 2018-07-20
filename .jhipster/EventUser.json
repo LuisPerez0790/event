@@ -1,0 +1,67 @@
+{
+    "name": "EventUser",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "institution",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "position",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imageUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userType",
+            "fieldType": "UserType",
+            "fieldValues": "EXPOSITOR,PARTICIPANT,ORGANIZER"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cms",
+            "otherEntityName": "cMS",
+            "otherEntityRelationshipName": "eventUser"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "site",
+            "otherEntityName": "event",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "eventUser"
+        }
+    ],
+    "changelogDate": "20180720154256",
+    "entityTableName": "event_user",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}

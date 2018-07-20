@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CMS.
+    -->
+    <changeSet id="20180720154258-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="event_user_id"
+                                 baseTableName="cms"
+                                 constraintName="fk_cms_event_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="event_id"
+                                 baseTableName="cms"
+                                 constraintName="fk_cms_event_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="event"/>
+
+        <addForeignKeyConstraint baseColumnNames="activity_id"
+                                 baseTableName="cms"
+                                 constraintName="fk_cms_activity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="activity"/>
+
+        <addForeignKeyConstraint baseColumnNames="site_page_id"
+                                 baseTableName="cms"
+                                 constraintName="fk_cms_site_page_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="site_page"/>
+
+    </changeSet>
+</databaseChangeLog>

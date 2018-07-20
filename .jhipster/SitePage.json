@@ -1,0 +1,59 @@
+{
+    "name": "SitePage",
+    "fields": [
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updatedDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "menuEntry",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "order",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "slug",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "site",
+            "otherEntityName": "site",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "page",
+            "otherEntityName": "sitePageLanguage",
+            "otherEntityRelationshipName": "sitePage"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cms",
+            "otherEntityName": "cMS",
+            "otherEntityRelationshipName": "sitePage"
+        }
+    ],
+    "changelogDate": "20180720154305",
+    "entityTableName": "site_page",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "microserviceName": "event"
+}
