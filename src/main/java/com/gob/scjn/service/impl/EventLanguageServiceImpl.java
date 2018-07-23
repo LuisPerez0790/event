@@ -91,16 +91,4 @@ public class EventLanguageServiceImpl implements EventLanguageService {
 		log.debug("Request to delete EventLanguage : {}", id);
 		eventLanguageRepository.deleteById(id);
 	}
-
-	@Override
-	@Transactional
-	public List<EventLanguageDTO> findByEventId(Long id) {
-		return eventLanguageMapper.toDto(eventLanguageRepository.findByEvent(id));
-	}
-
-	@Override
-	@Transactional
-	public Optional<EventLanguageDTO> findByEventAndLanguageId(Long id, Long langId) {
-		return eventLanguageRepository.findByEventAndId(id, langId).map(eventLanguageMapper::toDto);
-	}
 }

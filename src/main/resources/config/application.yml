@@ -122,7 +122,7 @@ security:
             client-id: internal
             client-secret: internal
         resource:
-            user-info-uri: http://localhost:9080/auth/realms/jhipster/protocol/openid-connect/userinfo
+            user-info-uri: http://192.168.99.100:9080/auth/realms/jhipster/protocol/openid-connect/userinfo
 
 server:
     servlet:

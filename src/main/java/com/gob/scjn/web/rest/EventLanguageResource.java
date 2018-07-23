@@ -5,6 +5,7 @@ import com.gob.scjn.service.EventLanguageService;
 import com.gob.scjn.web.rest.errors.BadRequestAlertException;
 import com.gob.scjn.web.rest.util.HeaderUtil;
 import com.gob.scjn.web.rest.util.PaginationUtil;
+import com.gob.scjn.service.dto.ActivityLanguageDTO;
 import com.gob.scjn.service.dto.EventLanguageDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.undertow.util.BadRequestException;
@@ -89,10 +90,13 @@ public class EventLanguageResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of eventLanguages in body
      */
-    @GetMapping("/events/{id}/languages") //Muestra todos los idiomas de un evento especifico
+    @GetMapping("/event-languages") //Muestra todos los idiomas de un evento especifico
     @Timed
-    public ResponseEntity<List<EventLanguageDTO>> getAllEventLanguages(@PathVariable Long id) {
-        return new ResponseEntity<List<EventLanguageDTO>>(eventLanguageService.findByEventId(id), HttpStatus.OK);
+    public ResponseEntity<List<EventLanguageDTO>> getAllEventLanguages(Pageable pageable) {
+    	 log.debug("REST request to get a page of ActivityLanguages");
+         Page<EventLanguageDTO> page = eventLanguageService.findAll(pageable);
+         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/activity-languages");
+         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

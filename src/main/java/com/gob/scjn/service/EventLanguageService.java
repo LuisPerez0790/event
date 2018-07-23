@@ -45,7 +45,4 @@ public interface EventLanguageService {
      */
     void delete(Long id);
 
-	List<EventLanguageDTO> findByEventId(Long id);
-
-	Optional<EventLanguageDTO> findByEventAndLanguageId(Long id, Long langId);
 }

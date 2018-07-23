@@ -16,8 +16,4 @@ import com.gob.scjn.domain.EventLanguage;
 @Repository
 public interface EventLanguageRepository extends JpaRepository<EventLanguage, Long> {
 	
-	List<EventLanguage> findByEvent(Long id);
-	
-	Optional<EventLanguage> findByEventAndId(Long id, Long langId); 
-
 }
