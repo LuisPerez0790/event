@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "languages",
+            "otherEntityName": "menuItemsLanguage",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "menuItems"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "weight",
+            "fieldType": "Integer",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180723205134",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "menu_items",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "event"
+}

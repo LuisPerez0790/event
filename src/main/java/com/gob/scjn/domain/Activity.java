@@ -1,15 +1,23 @@
 package com.gob.scjn.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Activity.
@@ -40,7 +48,8 @@ public class Activity implements Serializable {
     @JsonIgnoreProperties("activities")
     private Event event;
 
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "activity_id")
     private Set<ActivityLanguage> languages = new HashSet<>();
 
     @OneToMany(mappedBy = "activity")
@@ -129,11 +138,11 @@ public class Activity implements Serializable {
         return this;
     }
 
-    public Activity addLanguages(ActivityLanguage activityLanguage) {
-        this.languages.add(activityLanguage);
-        activityLanguage.setActivity(this);
-        return this;
-    }
+//    public Activity addLanguages(ActivityLanguage activityLanguage) {
+//        this.languages.add(activityLanguage);
+//        activityLanguage.setActivity(this);
+//        return this;
+//    }
 
     public Activity removeLanguages(ActivityLanguage activityLanguage) {
         this.languages.remove(activityLanguage);
@@ -191,14 +200,12 @@ public class Activity implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-            "id=" + getId() +
-            ", startDate='" + getStartDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", enabled='" + isEnabled() + "'" +
-            "}";
-    }
-}
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", imageUrl=" + imageUrl
+				+ ", enabled=" + enabled + ", event=" + event + ", languages=" + languages + ", cms=" + cms + "]";
+	}
+    
+    
+
+   }

@@ -2,7 +2,12 @@ package com.gob.scjn.service.dto;
 
 import java.time.Instant;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import com.gob.scjn.domain.ActivityLanguage;
+import com.gob.scjn.domain.EventLanguage;
 
 /**
  * A DTO for the Activity entity.
@@ -20,8 +25,10 @@ public class ActivityDTO implements Serializable {
     private Boolean enabled;
 
     private Long eventId;
+    
+    private Set<ActivityLanguage> languages = new HashSet<>();
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -68,6 +75,14 @@ public class ActivityDTO implements Serializable {
     public void setEventId(Long eventId) {
         this.eventId = eventId;
     }
+    
+    public Set<ActivityLanguage> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(Set<ActivityLanguage> languages) {
+		this.languages = languages;
+	}
 
     @Override
     public boolean equals(Object o) {
@@ -90,15 +105,11 @@ public class ActivityDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "ActivityDTO{" +
-            "id=" + getId() +
-            ", startDate='" + getStartDate() + "'" +
-            ", endDate='" + getEndDate() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", enabled='" + isEnabled() + "'" +
-            ", event=" + getEventId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "ActivityDTO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", imageUrl=" + imageUrl
+				+ ", enabled=" + enabled + ", eventId=" + eventId + ", languages=" + languages + "]";
+	}
+
+   
 }

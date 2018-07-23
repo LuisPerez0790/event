@@ -35,9 +35,8 @@ public class ActivityLanguage implements Serializable {
     @Column(name = "language")
     private Language language;
 
-    @ManyToOne
-    @JsonIgnoreProperties("languages")
-    private Activity activity;
+    @Column(name="activity_id")
+    private Long activity;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -100,16 +99,16 @@ public class ActivityLanguage implements Serializable {
         this.language = language;
     }
 
-    public Activity getActivity() {
+    public Long getActivity() {
         return activity;
     }
 
-    public ActivityLanguage activity(Activity activity) {
+    public ActivityLanguage activity(Long activity) {
         this.activity = activity;
         return this;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(Long activity) {
         this.activity = activity;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

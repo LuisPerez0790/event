@@ -1,8 +1,6 @@
 package com.gob.scjn.service.impl;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gob.scjn.domain.EventLanguage;
 import com.gob.scjn.repository.EventLanguageRepository;
-import com.gob.scjn.repository.EventRepository;
 import com.gob.scjn.service.EventLanguageService;
 import com.gob.scjn.service.dto.EventLanguageDTO;
 import com.gob.scjn.service.mapper.EventLanguageMapper;

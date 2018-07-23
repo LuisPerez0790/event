@@ -11,10 +11,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {ActivityMapper.class})
 public interface ActivityLanguageMapper extends EntityMapper<ActivityLanguageDTO, ActivityLanguage> {
 
-    @Mapping(source = "activity.id", target = "activityId")
     ActivityLanguageDTO toDto(ActivityLanguage activityLanguage);
 
-    @Mapping(source = "activityId", target = "activity")
     ActivityLanguage toEntity(ActivityLanguageDTO activityLanguageDTO);
 
     default ActivityLanguage fromId(Long id) {

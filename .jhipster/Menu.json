@@ -1,0 +1,21 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "items",
+            "otherEntityName": "menuItems",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "menu"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20180723204640",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "menu",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "event"
+}

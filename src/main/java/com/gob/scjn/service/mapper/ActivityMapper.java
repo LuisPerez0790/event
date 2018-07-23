@@ -15,7 +15,6 @@ public interface ActivityMapper extends EntityMapper<ActivityDTO, Activity> {
     ActivityDTO toDto(Activity activity);
 
     @Mapping(source = "eventId", target = "event")
-    @Mapping(target = "languages", ignore = true)
     @Mapping(target = "cms", ignore = true)
     Activity toEntity(ActivityDTO activityDTO);
 

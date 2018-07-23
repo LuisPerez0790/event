@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "language",
+            "fieldType": "Language",
+            "fieldValues": "ENGLISH,FRENCH,SPANISH,PORTUGUESE,GERMAN,ITALIAN,RUSSIAN"
+        }
+    ],
+    "changelogDate": "20180723205426",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "menu_items_language",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "event"
+}

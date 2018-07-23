@@ -46,7 +46,7 @@ public class SiteFooterResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new siteFooterDTO, or with status 400 (Bad Request) if the siteFooter has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/site-footers")
+    @PostMapping("/site-footer")
     @Timed
     public ResponseEntity<SiteFooterDTO> createSiteFooter(@RequestBody SiteFooterDTO siteFooterDTO) throws URISyntaxException {
         log.debug("REST request to save SiteFooter : {}", siteFooterDTO);
@@ -68,7 +68,7 @@ public class SiteFooterResource {
      * or with status 500 (Internal Server Error) if the siteFooterDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/site-footers")
+    @PutMapping("/site-footer")
     @Timed
     public ResponseEntity<SiteFooterDTO> updateSiteFooter(@RequestBody SiteFooterDTO siteFooterDTO) throws URISyntaxException {
         log.debug("REST request to update SiteFooter : {}", siteFooterDTO);
@@ -87,7 +87,7 @@ public class SiteFooterResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of siteFooters in body
      */
-    @GetMapping("/site-footers")
+    @GetMapping("/site-footer")
     @Timed
     public ResponseEntity<List<SiteFooterDTO>> getAllSiteFooters(Pageable pageable) {
         log.debug("REST request to get a page of SiteFooters");
@@ -102,7 +102,7 @@ public class SiteFooterResource {
      * @param id the id of the siteFooterDTO to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the siteFooterDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/site-footers/{id}")
+    @GetMapping("/site-footer/{id}")
     @Timed
     public ResponseEntity<SiteFooterDTO> getSiteFooter(@PathVariable Long id) {
         log.debug("REST request to get SiteFooter : {}", id);
@@ -116,7 +116,7 @@ public class SiteFooterResource {
      * @param id the id of the siteFooterDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/site-footers/{id}")
+    @DeleteMapping("/site-footer/{id}")
     @Timed
     public ResponseEntity<Void> deleteSiteFooter(@PathVariable Long id) {
         log.debug("REST request to delete SiteFooter : {}", id);
