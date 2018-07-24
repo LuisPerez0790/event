@@ -8,23 +8,13 @@
     -->
     <changeSet id="20180720154257-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="venue_id"
-                                 baseTableName="event"
-                                 constraintName="fk_event_venue_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="venue"/>
-
-        <addForeignKeyConstraint baseColumnNames="site_id"
-                                 baseTableName="event"
-                                 constraintName="fk_event_site_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="site"/>
 
         <addForeignKeyConstraint baseColumnNames="events_id"
                                  baseTableName="event_event_user"
                                  constraintName="fk_event_event_user_events_id"
                                  referencedColumnNames="id"
                                  referencedTableName="event"/>
+                                 
         <addForeignKeyConstraint baseColumnNames="event_users_id"
                                  baseTableName="event_event_user"
                                  constraintName="fk_event_event_user_event_users_id"

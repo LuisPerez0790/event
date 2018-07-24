@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -49,14 +48,6 @@ public class Event implements Serializable {
 
     @Column(name = "acronym")
     private String acronym;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Venue venue;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Site site;
 
     @OneToMany(mappedBy = "event")
     private Set<Activity> activities = new HashSet<>();
@@ -159,32 +150,6 @@ public class Event implements Serializable {
 
     public void setAcronym(String acronym) {
         this.acronym = acronym;
-    }
-
-    public Venue getVenue() {
-        return venue;
-    }
-
-    public Event venue(Venue venue) {
-        this.venue = venue;
-        return this;
-    }
-
-    public void setVenue(Venue venue) {
-        this.venue = venue;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public Event site(Site site) {
-        this.site = site;
-        return this;
-    }
-
-    public void setSite(Site site) {
-        this.site = site;
     }
 
     public Set<Activity> getActivities() {
@@ -311,7 +276,7 @@ public class Event implements Serializable {
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", url=" + url + ", imageUrl="
-				+ imageUrl + ", enabled=" + enabled + ", acronym=" + acronym + ", venue=" + venue + ", site=" + site
+				+ imageUrl + ", enabled=" + enabled + ", acronym=" + acronym 
 				+ ", languages=" + languages + ", eventUsers=" + eventUsers + "]";
 	}
 

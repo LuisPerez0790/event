@@ -1,20 +1,19 @@
 package com.gob.scjn.service.impl;
 
-import com.gob.scjn.service.SiteService;
-import com.gob.scjn.domain.Site;
-import com.gob.scjn.repository.SiteRepository;
-import com.gob.scjn.service.dto.SiteDTO;
-import com.gob.scjn.service.mapper.SiteMapper;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.Optional;
+import com.gob.scjn.domain.Site;
+import com.gob.scjn.repository.SiteRepository;
+import com.gob.scjn.service.SiteService;
+import com.gob.scjn.service.dto.SiteDTO;
+import com.gob.scjn.service.mapper.SiteMapper;
 /**
  * Service Implementation for managing Site.
  */
@@ -41,8 +40,11 @@ public class SiteServiceImpl implements SiteService {
      */
     @Override
     public SiteDTO save(SiteDTO siteDTO) {
+    	log.debug("**********************************");
         log.debug("Request to save Site : {}", siteDTO);
         Site site = siteMapper.toEntity(siteDTO);
+        log.debug("**********************************");
+        log.debug("{}",site);
         site = siteRepository.save(site);
         return siteMapper.toDto(site);
     }

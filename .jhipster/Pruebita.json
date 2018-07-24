@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "test",
+            "otherEntityName": "pruebita2",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "testtwo"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180724161850",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "pruebita",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "event"
+}

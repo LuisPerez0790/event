@@ -52,14 +52,22 @@ public class Site implements Serializable {
     private String subtitle;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "palette_id")
     private SiteColorPalette palette;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(name = "footer_id")
     private SiteFooter footer;
+    
+    @OneToOne
+    @JoinColumn(name= "menu_id")
+    private Menu menu;
+    
+	@OneToOne
+    @JoinColumn(unique = true)
+    private Event event;
 
-    @OneToMany(mappedBy = "site")
+	@OneToMany(mappedBy = "site")
     private Set<SitePage> sitePages = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -161,6 +169,19 @@ public class Site implements Serializable {
     public void setFooter(SiteFooter siteFooter) {
         this.footer = siteFooter;
     }
+    
+    public Event getEvent() {
+		return event;
+	}
+    
+    public Site event(Event event) {
+    	this.event = event;
+    	return this;
+    }
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 
     public Set<SitePage> getSitePages() {
         return sitePages;
@@ -186,6 +207,14 @@ public class Site implements Serializable {
     public void setSitePages(Set<SitePage> sitePages) {
         this.sitePages = sitePages;
     }
+    
+    public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

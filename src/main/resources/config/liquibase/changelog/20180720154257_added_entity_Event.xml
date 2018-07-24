@@ -45,11 +45,7 @@
             <column name="acronym" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="venue_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>            <column name="site_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="event" columnName="start_date" columnDataType="datetime"/>

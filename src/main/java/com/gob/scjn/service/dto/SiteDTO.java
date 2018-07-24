@@ -1,9 +1,14 @@
 package com.gob.scjn.service.dto;
 
-import java.time.Instant;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
+
 import javax.persistence.Lob;
+
+import com.gob.scjn.domain.Menu;
+import com.gob.scjn.domain.SiteColorPalette;
+import com.gob.scjn.domain.SiteFooter;
 import com.gob.scjn.domain.enumeration.PageStatus;
 
 /**
@@ -23,12 +28,16 @@ public class SiteDTO implements Serializable {
 
     @Lob
     private String subtitle;
+    
+	private SiteColorPalette palette;
+    
+    private SiteFooter footer;
+    
+    private Menu menu;
+    
+	private Long eventId;
 
-    private Long paletteId;
-
-    private Long footerId;
-
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -76,21 +85,38 @@ public class SiteDTO implements Serializable {
         this.subtitle = subtitle;
     }
 
-    public Long getPaletteId() {
-        return paletteId;
-    }
+    public Long getEventId() {
+		return eventId;
+	}
 
-    public void setPaletteId(Long siteColorPaletteId) {
-        this.paletteId = siteColorPaletteId;
-    }
+	public void setEventId(Long eventId) {
+		this.eventId = eventId;
+	}
+	
+    public SiteColorPalette getPalette() {
+		return palette;
+	}
 
-    public Long getFooterId() {
-        return footerId;
-    }
+	public void setPalette(SiteColorPalette palette) {
+		this.palette = palette;
+	}
 
-    public void setFooterId(Long siteFooterId) {
-        this.footerId = siteFooterId;
-    }
+	public SiteFooter getFooter() {
+		return footer;
+	}
+
+	public void setFooter(SiteFooter footer) {
+		this.footer = footer;
+	}
+	
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
 
     @Override
     public boolean equals(Object o) {
@@ -113,17 +139,13 @@ public class SiteDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "SiteDTO{" +
-            "id=" + getId() +
-            ", acronym='" + getAcronym() + "'" +
-            ", date='" + getDate() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", subtitle='" + getSubtitle() + "'" +
-            ", palette=" + getPaletteId() +
-            ", footer=" + getFooterId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "SiteDTO [id=" + id + ", acronym=" + acronym + ", date=" + date + ", status=" + status + ", title="
+				+ title + ", subtitle=" + subtitle + ", palette=" + palette + ", footer=" + footer + ", eventId="
+				+ eventId + "]";
+	}
+
+	
+   
 }

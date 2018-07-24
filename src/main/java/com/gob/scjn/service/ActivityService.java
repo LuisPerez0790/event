@@ -43,4 +43,6 @@ public interface ActivityService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	Page<ActivityDTO> findAllByEventId(Long id, Pageable pageable);
 }

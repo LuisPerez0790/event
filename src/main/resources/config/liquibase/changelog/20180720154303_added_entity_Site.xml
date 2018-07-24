@@ -46,6 +46,14 @@
             </column>            <column name="footer_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
+            
+             <column name="menu_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
+            
+            <column name="event_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="site" columnName="jhi_date" columnDataType="datetime"/>
