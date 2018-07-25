@@ -10,19 +10,17 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Event.class)
 public abstract class Event_ {
 
-	public static volatile SingularAttribute<Event, Venue> venue;
+	public static volatile SetAttribute<Event, EventUser> eventUsers;
 	public static volatile SetAttribute<Event, EventLanguage> languages;
 	public static volatile SingularAttribute<Event, Instant> endDate;
 	public static volatile SingularAttribute<Event, String> acronym;
-	public static volatile SetAttribute<Event, CMS> cms;
-	public static volatile SingularAttribute<Event, String> url;
-	public static volatile SingularAttribute<Event, Boolean> enabled;
-	public static volatile SetAttribute<Event, EventUser> eventUsers;
-	public static volatile SingularAttribute<Event, Site> site;
 	public static volatile SetAttribute<Event, Activity> activities;
 	public static volatile SingularAttribute<Event, String> imageUrl;
+	public static volatile SetAttribute<Event, CMS> cms;
 	public static volatile SingularAttribute<Event, Long> id;
 	public static volatile SingularAttribute<Event, Instant> startDate;
+	public static volatile SingularAttribute<Event, String> url;
+	public static volatile SingularAttribute<Event, Boolean> enabled;
 
 }
 

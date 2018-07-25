@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,7 +27,8 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="menu_id")
     private Set<MenuItems> items = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

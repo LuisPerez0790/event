@@ -3,8 +3,6 @@ package com.gob.scjn.service.mapper;
 import com.gob.scjn.domain.Event;
 import com.gob.scjn.domain.EventLanguage;
 import com.gob.scjn.domain.EventUser;
-import com.gob.scjn.domain.Site;
-import com.gob.scjn.domain.Venue;
 import com.gob.scjn.service.dto.EventDTO;
 import com.gob.scjn.service.dto.EventUserDTO;
 import java.util.ArrayList;
@@ -17,16 +15,12 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-21T16:28:42-0500",
+    date = "2018-07-24T19:22:05-0500",
     comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.12.3.v20170228-1205, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
 public class EventMapperImpl implements EventMapper {
 
-    @Autowired
-    private VenueMapper venueMapper;
-    @Autowired
-    private SiteMapper siteMapper;
     @Autowired
     private EventUserMapper eventUserMapper;
 
@@ -66,20 +60,14 @@ public class EventMapperImpl implements EventMapper {
 
         EventDTO eventDTO = new EventDTO();
 
-        Long id = eventSiteId( event );
-        if ( id != null ) {
-            eventDTO.setSiteId( id );
-        }
-        Long id1 = eventVenueId( event );
-        if ( id1 != null ) {
-            eventDTO.setVenueId( id1 );
-        }
-        eventDTO.setAcronym( event.getAcronym() );
-        eventDTO.setEnabled( event.isEnabled() );
-        eventDTO.setEndDate( event.getEndDate() );
-        eventDTO.setEventUsers( eventUserSetToEventUserDTOSet( event.getEventUsers() ) );
         eventDTO.setId( event.getId() );
+        eventDTO.setStartDate( event.getStartDate() );
+        eventDTO.setEndDate( event.getEndDate() );
+        eventDTO.setUrl( event.getUrl() );
         eventDTO.setImageUrl( event.getImageUrl() );
+        eventDTO.setEnabled( event.isEnabled() );
+        eventDTO.setAcronym( event.getAcronym() );
+        eventDTO.setEventUsers( eventUserSetToEventUserDTOSet( event.getEventUsers() ) );
         Set<EventLanguage> set1 = event.getLanguages();
         if ( set1 != null ) {
             eventDTO.setLanguages( new HashSet<EventLanguage>( set1 ) );
@@ -87,8 +75,6 @@ public class EventMapperImpl implements EventMapper {
         else {
             eventDTO.setLanguages( null );
         }
-        eventDTO.setStartDate( event.getStartDate() );
-        eventDTO.setUrl( event.getUrl() );
 
         return eventDTO;
     }
@@ -101,55 +87,23 @@ public class EventMapperImpl implements EventMapper {
 
         Event event = new Event();
 
-        event.setVenue( venueMapper.fromId( eventDTO.getVenueId() ) );
-        event.setSite( siteMapper.fromId( eventDTO.getSiteId() ) );
-        event.setAcronym( eventDTO.getAcronym() );
-        event.setEnabled( eventDTO.isEnabled() );
-        event.setEndDate( eventDTO.getEndDate() );
-        event.setEventUsers( eventUserDTOSetToEventUserSet( eventDTO.getEventUsers() ) );
         event.setId( eventDTO.getId() );
+        event.setStartDate( eventDTO.getStartDate() );
+        event.setEndDate( eventDTO.getEndDate() );
+        event.setUrl( eventDTO.getUrl() );
         event.setImageUrl( eventDTO.getImageUrl() );
-        Set<EventLanguage> set1 = eventDTO.getLanguages();
-        if ( set1 != null ) {
-            event.setLanguages( new HashSet<EventLanguage>( set1 ) );
+        event.setEnabled( eventDTO.isEnabled() );
+        event.setAcronym( eventDTO.getAcronym() );
+        Set<EventLanguage> set = eventDTO.getLanguages();
+        if ( set != null ) {
+            event.setLanguages( new HashSet<EventLanguage>( set ) );
         }
         else {
             event.setLanguages( null );
         }
-        event.setStartDate( eventDTO.getStartDate() );
-        event.setUrl( eventDTO.getUrl() );
+        event.setEventUsers( eventUserDTOSetToEventUserSet( eventDTO.getEventUsers() ) );
 
         return event;
-    }
-
-    private Long eventSiteId(Event event) {
-        if ( event == null ) {
-            return null;
-        }
-        Site site = event.getSite();
-        if ( site == null ) {
-            return null;
-        }
-        Long id = site.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
-    }
-
-    private Long eventVenueId(Event event) {
-        if ( event == null ) {
-            return null;
-        }
-        Venue venue = event.getVenue();
-        if ( venue == null ) {
-            return null;
-        }
-        Long id = venue.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
     }
 
     protected Set<EventUserDTO> eventUserSetToEventUserDTOSet(Set<EventUser> set) {

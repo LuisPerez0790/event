@@ -1,8 +1,7 @@
 package com.gob.scjn.service.mapper;
 
+import com.gob.scjn.domain.Event;
 import com.gob.scjn.domain.Site;
-import com.gob.scjn.domain.SiteColorPalette;
-import com.gob.scjn.domain.SiteFooter;
 import com.gob.scjn.service.dto.SiteDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,40 +11,38 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-21T14:51:12-0500",
+    date = "2018-07-24T19:51:25-0500",
     comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.12.3.v20170228-1205, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
 public class SiteMapperImpl implements SiteMapper {
 
     @Autowired
-    private SiteColorPaletteMapper siteColorPaletteMapper;
-    @Autowired
-    private SiteFooterMapper siteFooterMapper;
+    private EventMapper eventMapper;
 
     @Override
-    public List<Site> toEntity(List<SiteDTO> dtoList) {
-        if ( dtoList == null ) {
+    public List<SiteDTO> toDto(List<Site> arg0) {
+        if ( arg0 == null ) {
             return null;
         }
 
-        List<Site> list = new ArrayList<Site>( dtoList.size() );
-        for ( SiteDTO siteDTO : dtoList ) {
-            list.add( toEntity( siteDTO ) );
+        List<SiteDTO> list = new ArrayList<SiteDTO>( arg0.size() );
+        for ( Site site : arg0 ) {
+            list.add( toDto( site ) );
         }
 
         return list;
     }
 
     @Override
-    public List<SiteDTO> toDto(List<Site> entityList) {
-        if ( entityList == null ) {
+    public List<Site> toEntity(List<SiteDTO> arg0) {
+        if ( arg0 == null ) {
             return null;
         }
 
-        List<SiteDTO> list = new ArrayList<SiteDTO>( entityList.size() );
-        for ( Site site : entityList ) {
-            list.add( toDto( site ) );
+        List<Site> list = new ArrayList<Site>( arg0.size() );
+        for ( SiteDTO siteDTO : arg0 ) {
+            list.add( toEntity( siteDTO ) );
         }
 
         return list;
@@ -59,20 +56,19 @@ public class SiteMapperImpl implements SiteMapper {
 
         SiteDTO siteDTO = new SiteDTO();
 
-        Long id = siteFooterId( site );
+        Long id = siteEventId( site );
         if ( id != null ) {
-            siteDTO.setFooterId( id );
+            siteDTO.setEventId( id );
         }
-        Long id1 = sitePaletteId( site );
-        if ( id1 != null ) {
-            siteDTO.setPaletteId( id1 );
-        }
-        siteDTO.setId( site.getId() );
         siteDTO.setAcronym( site.getAcronym() );
         siteDTO.setDate( site.getDate() );
+        siteDTO.setFooter( site.getFooter() );
+        siteDTO.setId( site.getId() );
+        siteDTO.setMenu( site.getMenu() );
+        siteDTO.setPalette( site.getPalette() );
         siteDTO.setStatus( site.getStatus() );
-        siteDTO.setTitle( site.getTitle() );
         siteDTO.setSubtitle( site.getSubtitle() );
+        siteDTO.setTitle( site.getTitle() );
 
         return siteDTO;
     }
@@ -85,42 +81,29 @@ public class SiteMapperImpl implements SiteMapper {
 
         Site site = new Site();
 
-        site.setPalette( siteColorPaletteMapper.fromId( siteDTO.getPaletteId() ) );
-        site.setFooter( siteFooterMapper.fromId( siteDTO.getFooterId() ) );
-        site.setId( siteDTO.getId() );
+        site.setEvent( eventMapper.fromId( siteDTO.getEventId() ) );
         site.setAcronym( siteDTO.getAcronym() );
         site.setDate( siteDTO.getDate() );
+        site.setFooter( siteDTO.getFooter() );
+        site.setId( siteDTO.getId() );
+        site.setMenu( siteDTO.getMenu() );
+        site.setPalette( siteDTO.getPalette() );
         site.setStatus( siteDTO.getStatus() );
-        site.setTitle( siteDTO.getTitle() );
         site.setSubtitle( siteDTO.getSubtitle() );
+        site.setTitle( siteDTO.getTitle() );
 
         return site;
     }
 
-    private Long siteFooterId(Site site) {
+    private Long siteEventId(Site site) {
         if ( site == null ) {
             return null;
         }
-        SiteFooter footer = site.getFooter();
-        if ( footer == null ) {
+        Event event = site.getEvent();
+        if ( event == null ) {
             return null;
         }
-        Long id = footer.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
-    }
-
-    private Long sitePaletteId(Site site) {
-        if ( site == null ) {
-            return null;
-        }
-        SiteColorPalette palette = site.getPalette();
-        if ( palette == null ) {
-            return null;
-        }
-        Long id = palette.getId();
+        Long id = event.getId();
         if ( id == null ) {
             return null;
         }

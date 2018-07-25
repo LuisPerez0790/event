@@ -19,6 +19,8 @@ public abstract class Site_ {
 	public static volatile SingularAttribute<Site, SiteColorPalette> palette;
 	public static volatile SingularAttribute<Site, Long> id;
 	public static volatile SingularAttribute<Site, String> title;
+	public static volatile SingularAttribute<Site, Menu> menu;
+	public static volatile SingularAttribute<Site, Event> event;
 	public static volatile SingularAttribute<Site, PageStatus> status;
 
 }

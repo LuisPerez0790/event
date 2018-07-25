@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-21T14:51:12-0500",
+    date = "2018-07-24T19:22:06-0500",
     comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.12.3.v20170228-1205, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
@@ -21,28 +21,28 @@ public class SitePageMapperImpl implements SitePageMapper {
     private SiteMapper siteMapper;
 
     @Override
-    public List<SitePage> toEntity(List<SitePageDTO> dtoList) {
-        if ( dtoList == null ) {
+    public List<SitePageDTO> toDto(List<SitePage> arg0) {
+        if ( arg0 == null ) {
             return null;
         }
 
-        List<SitePage> list = new ArrayList<SitePage>( dtoList.size() );
-        for ( SitePageDTO sitePageDTO : dtoList ) {
-            list.add( toEntity( sitePageDTO ) );
+        List<SitePageDTO> list = new ArrayList<SitePageDTO>( arg0.size() );
+        for ( SitePage sitePage : arg0 ) {
+            list.add( toDto( sitePage ) );
         }
 
         return list;
     }
 
     @Override
-    public List<SitePageDTO> toDto(List<SitePage> entityList) {
-        if ( entityList == null ) {
+    public List<SitePage> toEntity(List<SitePageDTO> arg0) {
+        if ( arg0 == null ) {
             return null;
         }
 
-        List<SitePageDTO> list = new ArrayList<SitePageDTO>( entityList.size() );
-        for ( SitePage sitePage : entityList ) {
-            list.add( toDto( sitePage ) );
+        List<SitePage> list = new ArrayList<SitePage>( arg0.size() );
+        for ( SitePageDTO sitePageDTO : arg0 ) {
+            list.add( toEntity( sitePageDTO ) );
         }
 
         return list;
@@ -60,13 +60,13 @@ public class SitePageMapperImpl implements SitePageMapper {
         if ( id != null ) {
             sitePageDTO.setSiteId( id );
         }
-        sitePageDTO.setId( sitePage.getId() );
         sitePageDTO.setCreationDate( sitePage.getCreationDate() );
-        sitePageDTO.setUpdatedDate( sitePage.getUpdatedDate() );
+        sitePageDTO.setId( sitePage.getId() );
         sitePageDTO.setMenuEntry( sitePage.getMenuEntry() );
         sitePageDTO.setOrder( sitePage.getOrder() );
-        sitePageDTO.setStatus( sitePage.isStatus() );
         sitePageDTO.setSlug( sitePage.getSlug() );
+        sitePageDTO.setStatus( sitePage.isStatus() );
+        sitePageDTO.setUpdatedDate( sitePage.getUpdatedDate() );
 
         return sitePageDTO;
     }
@@ -80,13 +80,13 @@ public class SitePageMapperImpl implements SitePageMapper {
         SitePage sitePage = new SitePage();
 
         sitePage.setSite( siteMapper.fromId( sitePageDTO.getSiteId() ) );
-        sitePage.setId( sitePageDTO.getId() );
         sitePage.setCreationDate( sitePageDTO.getCreationDate() );
-        sitePage.setUpdatedDate( sitePageDTO.getUpdatedDate() );
+        sitePage.setId( sitePageDTO.getId() );
         sitePage.setMenuEntry( sitePageDTO.getMenuEntry() );
         sitePage.setOrder( sitePageDTO.getOrder() );
-        sitePage.setStatus( sitePageDTO.isStatus() );
         sitePage.setSlug( sitePageDTO.getSlug() );
+        sitePage.setStatus( sitePageDTO.isStatus() );
+        sitePage.setUpdatedDate( sitePageDTO.getUpdatedDate() );
 
         return sitePage;
     }

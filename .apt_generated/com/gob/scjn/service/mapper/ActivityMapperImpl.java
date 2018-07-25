@@ -1,17 +1,20 @@
 package com.gob.scjn.service.mapper;
 
 import com.gob.scjn.domain.Activity;
+import com.gob.scjn.domain.ActivityLanguage;
 import com.gob.scjn.domain.Event;
 import com.gob.scjn.service.dto.ActivityDTO;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-21T16:28:42-0500",
+    date = "2018-07-24T19:22:04-0500",
     comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.12.3.v20170228-1205, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
@@ -60,11 +63,18 @@ public class ActivityMapperImpl implements ActivityMapper {
         if ( id != null ) {
             activityDTO.setEventId( id );
         }
-        activityDTO.setEnabled( activity.isEnabled() );
-        activityDTO.setEndDate( activity.getEndDate() );
         activityDTO.setId( activity.getId() );
-        activityDTO.setImageUrl( activity.getImageUrl() );
         activityDTO.setStartDate( activity.getStartDate() );
+        activityDTO.setEndDate( activity.getEndDate() );
+        activityDTO.setImageUrl( activity.getImageUrl() );
+        activityDTO.setEnabled( activity.isEnabled() );
+        Set<ActivityLanguage> set = activity.getLanguages();
+        if ( set != null ) {
+            activityDTO.setLanguages( new HashSet<ActivityLanguage>( set ) );
+        }
+        else {
+            activityDTO.setLanguages( null );
+        }
 
         return activityDTO;
     }
@@ -78,11 +88,18 @@ public class ActivityMapperImpl implements ActivityMapper {
         Activity activity = new Activity();
 
         activity.setEvent( eventMapper.fromId( activityDTO.getEventId() ) );
-        activity.setEnabled( activityDTO.isEnabled() );
-        activity.setEndDate( activityDTO.getEndDate() );
         activity.setId( activityDTO.getId() );
-        activity.setImageUrl( activityDTO.getImageUrl() );
         activity.setStartDate( activityDTO.getStartDate() );
+        activity.setEndDate( activityDTO.getEndDate() );
+        activity.setImageUrl( activityDTO.getImageUrl() );
+        activity.setEnabled( activityDTO.isEnabled() );
+        Set<ActivityLanguage> set = activityDTO.getLanguages();
+        if ( set != null ) {
+            activity.setLanguages( new HashSet<ActivityLanguage>( set ) );
+        }
+        else {
+            activity.setLanguages( null );
+        }
 
         return activity;
     }

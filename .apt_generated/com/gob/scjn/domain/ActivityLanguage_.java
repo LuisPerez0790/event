@@ -10,7 +10,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class ActivityLanguage_ {
 
 	public static volatile SingularAttribute<ActivityLanguage, String> address;
-	public static volatile SingularAttribute<ActivityLanguage, Activity> activity;
+	public static volatile SingularAttribute<ActivityLanguage, Long> activity;
 	public static volatile SingularAttribute<ActivityLanguage, String> name;
 	public static volatile SingularAttribute<ActivityLanguage, String> description;
 	public static volatile SingularAttribute<ActivityLanguage, Language> language;
