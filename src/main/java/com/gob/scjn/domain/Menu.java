@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="menu_id")
     private Set<MenuItems> items = new HashSet<>();
 
@@ -46,18 +47,6 @@ public class Menu implements Serializable {
 
     public Menu items(Set<MenuItems> menuItems) {
         this.items = menuItems;
-        return this;
-    }
-
-    public Menu addItems(MenuItems menuItems) {
-        this.items.add(menuItems);
-        menuItems.setMenu(this);
-        return this;
-    }
-
-    public Menu removeItems(MenuItems menuItems) {
-        this.items.remove(menuItems);
-        menuItems.setMenu(null);
         return this;
     }
 
@@ -90,6 +79,8 @@ public class Menu implements Serializable {
 	public String toString() {
 		return "Menu [id=" + id + ", items=" + items + "]";
 	}
+
+	
 
     
 }

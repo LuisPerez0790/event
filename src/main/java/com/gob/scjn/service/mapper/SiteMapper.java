@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Site and its DTO SiteDTO.
  */
-@Mapper(componentModel = "spring", uses = {SiteColorPaletteMapper.class, SiteFooterMapper.class, EventMapper.class})
+@Mapper(componentModel = "spring", uses = {SiteColorPaletteMapper.class, SiteFooterMapper.class, EventMapper.class, MenuMapper.class})
 public interface SiteMapper extends EntityMapper<SiteDTO, Site> {
 
     @Mapping(source = "event.id", target = "eventId")

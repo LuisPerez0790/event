@@ -8,11 +8,9 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity MenuItems and its DTO MenuItemsDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {MenuItemsLanguageMapper.class})
 public interface MenuItemsMapper extends EntityMapper<MenuItemsDTO, MenuItems> {
 
-
-    @Mapping(target = "languages", ignore = true)
     MenuItems toEntity(MenuItemsDTO menuItemsDTO);
 
     default MenuItems fromId(Long id) {

@@ -8,15 +8,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A MenuItems.
@@ -36,14 +34,14 @@ public class MenuItems implements Serializable {
 
 	@Column(name = "url")
 	private String url;
+	
+	@Column(name= "menu_id")
+	private Long menu;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "menu_items_id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "menu_item_id")
 	private Set<MenuItemsLanguage> languages = new HashSet<>();
 
-	@ManyToOne
-	@JsonIgnoreProperties("items")
-	private Menu menu;
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not
 	// remove
@@ -80,6 +78,14 @@ public class MenuItems implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	public Long getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Long menu) {
+		this.menu = menu;
+	}
 
 	public Set<MenuItemsLanguage> getLanguages() {
 		return languages;
@@ -90,29 +96,11 @@ public class MenuItems implements Serializable {
 		return this;
 	}
 
-	public MenuItems addLanguages(MenuItemsLanguage menuItemsLanguage) {
-		this.languages.add(menuItemsLanguage);
-		menuItemsLanguage.setMenuItems(this);
-		return this;
-	}
-
-	public MenuItems removeLanguages(MenuItemsLanguage menuItemsLanguage) {
-		this.languages.remove(menuItemsLanguage);
-		menuItemsLanguage.setMenuItems(null);
-		return this;
-	}
-
 	public void setLanguages(Set<MenuItemsLanguage> menuItemsLanguages) {
 		this.languages = menuItemsLanguages;
 	}
 
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
-	}
+	
 	// jhipster-needle-entity-add-getters-setters - JHipster will add getters
 	// and setters here, do not remove
 
@@ -138,8 +126,12 @@ public class MenuItems implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MenuItems [id=" + id + ", weight=" + weight + ", url=" + url + ", languages=" + languages + ", menu="
-				+ menu + "]";
+		return "MenuItems [id=" + id + ", weight=" + weight + ", url=" + url + ", menu=" + menu + ", languages="
+				+ languages + "]";
 	}
+
+	
+
+
 
 }

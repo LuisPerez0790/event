@@ -2,6 +2,7 @@ package com.gob.scjn.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import com.gob.scjn.domain.enumeration.Language;
 
 /**

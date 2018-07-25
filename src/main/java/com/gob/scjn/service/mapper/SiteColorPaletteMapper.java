@@ -11,14 +11,14 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface SiteColorPaletteMapper extends EntityMapper<SiteColorPaletteDTO, SiteColorPalette> {
 
+	SiteColorPalette toEntity(SiteColorPaletteDTO siteColorPaletteDTO);
 
-
-    default SiteColorPalette fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        SiteColorPalette siteColorPalette = new SiteColorPalette();
-        siteColorPalette.setId(id);
-        return siteColorPalette;
-    }
+	default SiteColorPalette fromId(Long id) {
+		if (id == null) {
+			return null;
+		}
+		SiteColorPalette siteColorPalette = new SiteColorPalette();
+		siteColorPalette.setId(id);
+		return siteColorPalette;
+	}
 }

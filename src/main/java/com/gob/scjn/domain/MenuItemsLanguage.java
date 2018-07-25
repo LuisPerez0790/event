@@ -1,12 +1,18 @@
 package com.gob.scjn.domain;
 
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.gob.scjn.domain.enumeration.Language;
 
 /**
@@ -24,15 +30,14 @@ public class MenuItemsLanguage implements Serializable {
 
     @Column(name = "name")
     private String name;
+    
+    @Column(name="menu_item_id")
+    private Long item;
 
-    @Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
     @Column(name = "language")
     private Language language;
     
-    @ManyToOne
-    @JsonIgnoreProperties("languages")
-    private MenuItems menuItems;
-
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -68,13 +73,14 @@ public class MenuItemsLanguage implements Serializable {
         this.language = language;
     }
     
-    public MenuItems getMenuItems() {
-		return menuItems;
+    public Long getItem() {
+		return item;
 	}
 
-	public void setMenuItems(MenuItems menuItems) {
-		this.menuItems = menuItems;
+	public void setItem(Long item) {
+		this.item = item;
 	}
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -99,9 +105,9 @@ public class MenuItemsLanguage implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MenuItemsLanguage [id=" + id + ", name=" + name + ", language=" + language + ", menuItems=" + menuItems
-				+ "]";
+		return "MenuItemsLanguage [id=" + id + ", name=" + name + ", item=" + item + ", language=" + language + "]";
 	}
 
+	
    
 }

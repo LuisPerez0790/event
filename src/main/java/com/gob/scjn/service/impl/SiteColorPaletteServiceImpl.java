@@ -1,20 +1,20 @@
 package com.gob.scjn.service.impl;
 
-import com.gob.scjn.service.SiteColorPaletteService;
-import com.gob.scjn.domain.SiteColorPalette;
-import com.gob.scjn.repository.SiteColorPaletteRepository;
-import com.gob.scjn.service.dto.SiteColorPaletteDTO;
-import com.gob.scjn.service.mapper.SiteColorPaletteMapper;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.Optional;
+import com.gob.scjn.domain.SiteColorPalette;
+import com.gob.scjn.repository.SiteColorPaletteRepository;
+import com.gob.scjn.repository.SiteRepository;
+import com.gob.scjn.service.SiteColorPaletteService;
+import com.gob.scjn.service.dto.SiteColorPaletteDTO;
+import com.gob.scjn.service.mapper.SiteColorPaletteMapper;
 /**
  * Service Implementation for managing SiteColorPalette.
  */
@@ -27,10 +27,13 @@ public class SiteColorPaletteServiceImpl implements SiteColorPaletteService {
     private final SiteColorPaletteRepository siteColorPaletteRepository;
 
     private final SiteColorPaletteMapper siteColorPaletteMapper;
+    
+	private final SiteRepository siteRepository;
 
-    public SiteColorPaletteServiceImpl(SiteColorPaletteRepository siteColorPaletteRepository, SiteColorPaletteMapper siteColorPaletteMapper) {
+    public SiteColorPaletteServiceImpl(SiteColorPaletteRepository siteColorPaletteRepository, SiteColorPaletteMapper siteColorPaletteMapper, SiteRepository siteRepository) {
         this.siteColorPaletteRepository = siteColorPaletteRepository;
         this.siteColorPaletteMapper = siteColorPaletteMapper;
+        this.siteRepository = siteRepository;
     }
 
     /**
@@ -86,4 +89,9 @@ public class SiteColorPaletteServiceImpl implements SiteColorPaletteService {
         log.debug("Request to delete SiteColorPalette : {}", id);
         siteColorPaletteRepository.deleteById(id);
     }
+
+	@Override
+	public SiteColorPaletteDTO findFooterBySiteId(Long id) {
+		return siteColorPaletteMapper.toDto(siteRepository.findById(id).get().getPalette());
+	}
 }

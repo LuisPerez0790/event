@@ -43,4 +43,6 @@ public interface SiteColorPaletteService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+	SiteColorPaletteDTO findFooterBySiteId(Long id);
 }

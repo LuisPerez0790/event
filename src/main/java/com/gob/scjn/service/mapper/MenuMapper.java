@@ -8,11 +8,9 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Menu and its DTO MenuDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {MenuItemsMapper.class})
 public interface MenuMapper extends EntityMapper<MenuDTO, Menu> {
 
-
-    @Mapping(target = "items", ignore = true)
     Menu toEntity(MenuDTO menuDTO);
 
     default Menu fromId(Long id) {

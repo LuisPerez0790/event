@@ -1,7 +1,9 @@
 package com.gob.scjn.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the MenuItems entity.
@@ -13,8 +15,10 @@ public class MenuItemsDTO implements Serializable {
     private Integer weight;
 
     private String url;
+    
+    private Set<MenuItemsLanguageDTO> languages = new HashSet<>();
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -37,6 +41,14 @@ public class MenuItemsDTO implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+    
+    public Set<MenuItemsLanguageDTO> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(Set<MenuItemsLanguageDTO> languages) {
+		this.languages = languages;
+	}
 
     @Override
     public boolean equals(Object o) {
@@ -59,12 +71,10 @@ public class MenuItemsDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "MenuItemsDTO{" +
-            "id=" + getId() +
-            ", weight=" + getWeight() +
-            ", url='" + getUrl() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "MenuItemsDTO [id=" + id + ", weight=" + weight + ", url=" + url + ", languages=" + languages + "]";
+	}
+
+    
 }
