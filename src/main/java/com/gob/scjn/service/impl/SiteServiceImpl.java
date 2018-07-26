@@ -40,13 +40,7 @@ public class SiteServiceImpl implements SiteService {
      */
     @Override
     public SiteDTO save(SiteDTO siteDTO) {
-    	
-    	System.out.println("**************************");
-    	System.out.println(siteDTO);
         Site site = siteMapper.toEntity(siteDTO);
-        
-        System.out.println("**************************");
-    	System.out.println(site);
         site = siteRepository.save(site);
         return siteMapper.toDto(site);
     }

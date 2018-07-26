@@ -1,20 +1,16 @@
 package com.gob.scjn.service.impl;
 
-import com.gob.scjn.service.MenuService;
-import com.gob.scjn.domain.Menu;
-import com.gob.scjn.repository.MenuRepository;
-import com.gob.scjn.service.dto.MenuDTO;
-import com.gob.scjn.service.mapper.MenuMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.gob.scjn.domain.Site;
+import com.gob.scjn.repository.SiteRepository;
+import com.gob.scjn.service.MenuService;
+import com.gob.scjn.service.dto.MenuDTO;
+import com.gob.scjn.service.mapper.MenuMapper;
+
 /**
  * Service Implementation for managing Menu.
  */
@@ -22,68 +18,63 @@ import java.util.stream.Collectors;
 @Transactional
 public class MenuServiceImpl implements MenuService {
 
-    private final Logger log = LoggerFactory.getLogger(MenuServiceImpl.class);
+	private final Logger log = LoggerFactory.getLogger(MenuServiceImpl.class);
 
-    private final MenuRepository menuRepository;
+	private final MenuMapper menuMapper;
 
-    private final MenuMapper menuMapper;
+	private final SiteRepository siteRepository;
+	
 
-    public MenuServiceImpl(MenuRepository menuRepository, MenuMapper menuMapper) {
-        this.menuRepository = menuRepository;
-        this.menuMapper = menuMapper;
-    }
+	public MenuServiceImpl(MenuMapper menuMapper, SiteRepository siteRepository) {
+		this.menuMapper = menuMapper;
+		this.siteRepository = siteRepository;
+	}
 
-    /**
-     * Save a menu.
-     *
-     * @param menuDTO the entity to save
-     * @return the persisted entity
-     */
-    @Override
-    public MenuDTO save(MenuDTO menuDTO) {
-        log.debug("Request to save Menu : {}", menuDTO);
-        Menu menu = menuMapper.toEntity(menuDTO);
-        menu = menuRepository.save(menu);
-        return menuMapper.toDto(menu);
-    }
+	/**
+	 * Save a menu.
+	 *
+	 * @param menuDTO
+	 *            the entity to save
+	 * @return the persisted entity
+	 */
+	@Override
+	public MenuDTO save(Long id, MenuDTO menuDTO) {
+		log.debug("Request to save Menu : {}", menuDTO);
+		Site site = findByEventId(id);
+		site.setMenu(menuMapper.toEntity(menuDTO));
+		site = siteRepository.save(site);
+		return menuMapper.toDto(site.getMenu());
+	}
 
-    /**
-     * Get all the menus.
-     *
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public List<MenuDTO> findAll() {
-        log.debug("Request to get all Menus");
-        return menuRepository.findAll().stream()
-            .map(menuMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
+	/**
+	 * Get one menu by id.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 * @return the entity
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public MenuDTO findOne(Long id) {
+		Site site = findByEventId(id);
+		System.out.println(site);
+		return menuMapper.toDto(site.getMenu());
+	}
 
+	/**
+	 * Delete the menu by id.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 */
+	@Override
+	public void delete(Long id) {
+		Site site = findByEventId(id);
+		site.setMenu(null);
+		siteRepository.save(site);
+	}
 
-    /**
-     * Get one menu by id.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<MenuDTO> findOne(Long id) {
-        log.debug("Request to get Menu : {}", id);
-        return menuRepository.findById(id)
-            .map(menuMapper::toDto);
-    }
-
-    /**
-     * Delete the menu by id.
-     *
-     * @param id the id of the entity
-     */
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Menu : {}", id);
-        menuRepository.deleteById(id);
-    }
+	private Site findByEventId(Long id) {
+		return siteRepository.findById(id).get();
+	}
 }

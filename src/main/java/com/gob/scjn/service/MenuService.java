@@ -2,9 +2,6 @@ package com.gob.scjn.service;
 
 import com.gob.scjn.service.dto.MenuDTO;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
  * Service Interface for managing Menu.
  */
@@ -16,15 +13,7 @@ public interface MenuService {
      * @param menuDTO the entity to save
      * @return the persisted entity
      */
-    MenuDTO save(MenuDTO menuDTO);
-
-    /**
-     * Get all the menus.
-     *
-     * @return the list of entities
-     */
-    List<MenuDTO> findAll();
-
+    MenuDTO save(Long id, MenuDTO menuDTO);
 
     /**
      * Get the "id" menu.
@@ -32,7 +21,7 @@ public interface MenuService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<MenuDTO> findOne(Long id);
+    MenuDTO findOne(Long id);
 
     /**
      * Delete the "id" menu.

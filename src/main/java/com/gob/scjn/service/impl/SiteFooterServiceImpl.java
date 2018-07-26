@@ -1,20 +1,16 @@
 package com.gob.scjn.service.impl;
 
-import com.gob.scjn.service.SiteFooterService;
-import com.gob.scjn.domain.SiteFooter;
-import com.gob.scjn.repository.SiteFooterRepository;
-import com.gob.scjn.service.dto.SiteFooterDTO;
-import com.gob.scjn.service.mapper.SiteFooterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gob.scjn.domain.Site;
+import com.gob.scjn.repository.SiteRepository;
+import com.gob.scjn.service.SiteFooterService;
+import com.gob.scjn.service.dto.SiteFooterDTO;
+import com.gob.scjn.service.mapper.SiteFooterMapper;
 
-import java.util.Optional;
 /**
  * Service Implementation for managing SiteFooter.
  */
@@ -22,68 +18,62 @@ import java.util.Optional;
 @Transactional
 public class SiteFooterServiceImpl implements SiteFooterService {
 
-    private final Logger log = LoggerFactory.getLogger(SiteFooterServiceImpl.class);
+	private final Logger log = LoggerFactory.getLogger(SiteFooterServiceImpl.class);
 
-    private final SiteFooterRepository siteFooterRepository;
+	private final SiteFooterMapper siteFooterMapper;
 
-    private final SiteFooterMapper siteFooterMapper;
+	private final SiteRepository siteRepository;
 
-    public SiteFooterServiceImpl(SiteFooterRepository siteFooterRepository, SiteFooterMapper siteFooterMapper) {
-        this.siteFooterRepository = siteFooterRepository;
-        this.siteFooterMapper = siteFooterMapper;
-    }
+	public SiteFooterServiceImpl(SiteFooterMapper siteFooterMapper, SiteRepository siteRepository) {
+		this.siteFooterMapper = siteFooterMapper;
+		this.siteRepository = siteRepository;
+	}
 
-    /**
-     * Save a siteFooter.
-     *
-     * @param siteFooterDTO the entity to save
-     * @return the persisted entity
-     */
-    @Override
-    public SiteFooterDTO save(SiteFooterDTO siteFooterDTO) {
-        log.debug("Request to save SiteFooter : {}", siteFooterDTO);
-        SiteFooter siteFooter = siteFooterMapper.toEntity(siteFooterDTO);
-        siteFooter = siteFooterRepository.save(siteFooter);
-        return siteFooterMapper.toDto(siteFooter);
-    }
+	/**
+	 * Save a siteFooter.
+	 *
+	 * @param siteFooterDTO
+	 *            the entity to save
+	 * @return the persisted entity
+	 */
+	@Override
+	public SiteFooterDTO save(Long id, SiteFooterDTO siteFooterDTO) {
+		log.debug("Request to save SiteFooter : {}", siteFooterDTO);
+		Site site = findByEventId(id);
+		site.setFooter(siteFooterMapper.toEntity(siteFooterDTO));
+		site = siteRepository.save(site);
+		return siteFooterMapper.toDto(site.getFooter());
+	}
 
-    /**
-     * Get all the siteFooters.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<SiteFooterDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all SiteFooters");
-        return siteFooterRepository.findAll(pageable)
-            .map(siteFooterMapper::toDto);
-    }
+	/**
+	 * Get one siteFooter by id.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 * @return the entity
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public SiteFooterDTO findOne(Long id) {
+		return siteFooterMapper.toDto(findByEventId(id).getFooter());
+	}
 
+	/**
+	 * Delete the siteFooter by id.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 */
 
-    /**
-     * Get one siteFooter by id.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<SiteFooterDTO> findOne(Long id) {
-        log.debug("Request to get SiteFooter : {}", id);
-        return siteFooterRepository.findById(id)
-            .map(siteFooterMapper::toDto);
-    }
+	@Override
+	public void delete(Long id) {
+		log.debug("Request to delete SiteColorPalette : {}", id);
+		Site site = findByEventId(id);
+		site.setFooter(null);
+		siteRepository.save(site);
+	}
 
-    /**
-     * Delete the siteFooter by id.
-     *
-     * @param id the id of the entity
-     */
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete SiteFooter : {}", id);
-        siteFooterRepository.deleteById(id);
-    }
+	private Site findByEventId(Long id) {
+		return siteRepository.findById(id).get();
+	}
 }

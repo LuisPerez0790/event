@@ -1,26 +1,24 @@
 package com.gob.scjn.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.gob.scjn.service.SiteColorPaletteService;
-import com.gob.scjn.web.rest.errors.BadRequestAlertException;
-import com.gob.scjn.web.rest.util.HeaderUtil;
-import com.gob.scjn.web.rest.util.PaginationUtil;
-import com.gob.scjn.service.dto.SiteColorPaletteDTO;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+import com.gob.scjn.service.SiteColorPaletteService;
+import com.gob.scjn.service.dto.SiteColorPaletteDTO;
+import com.gob.scjn.web.rest.util.HeaderUtil;
 
 /**
  * REST controller for managing SiteColorPalette.
@@ -50,18 +48,10 @@ public class SiteColorPaletteResource {
 	 * @throws URISyntaxException
 	 *             if the Location URI syntax is incorrect
 	 */
-	@PostMapping("/site-color-palettes")
-	@Timed
-	public ResponseEntity<SiteColorPaletteDTO> createSiteColorPalette(
-			@RequestBody SiteColorPaletteDTO siteColorPaletteDTO) throws URISyntaxException {
-		log.debug("REST request to save SiteColorPalette : {}", siteColorPaletteDTO);
-		if (siteColorPaletteDTO.getId() != null) {
-			throw new BadRequestAlertException("A new siteColorPalette cannot already have an ID", ENTITY_NAME,
-					"idexists");
-		}
-		SiteColorPaletteDTO result = siteColorPaletteService.save(siteColorPaletteDTO);
-		return ResponseEntity.created(new URI("/api/site-color-palettes/" + result.getId()))
-				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
+	@PostMapping("/site/{id}/color-palette")
+	public ResponseEntity<SiteColorPaletteDTO> createFooterEntity(@PathVariable Long id, @RequestBody SiteColorPaletteDTO siteColorPaletteDTO) {
+		SiteColorPaletteDTO result = siteColorPaletteService.save(id,siteColorPaletteDTO);
+		return new ResponseEntity<>(result, HttpStatus.CREATED);
 	}
 
 	/**
@@ -76,18 +66,11 @@ public class SiteColorPaletteResource {
 	 * @throws URISyntaxException
 	 *             if the Location URI syntax is incorrect
 	 */
-	@PutMapping("/site-color-palettes")
+	@PutMapping("/site/{id}/color-palette")
 	@Timed
-	public ResponseEntity<SiteColorPaletteDTO> updateSiteColorPalette(
-			@RequestBody SiteColorPaletteDTO siteColorPaletteDTO) throws URISyntaxException {
-		log.debug("REST request to update SiteColorPalette : {}", siteColorPaletteDTO);
-		if (siteColorPaletteDTO.getId() == null) {
-			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-		}
-		SiteColorPaletteDTO result = siteColorPaletteService.save(siteColorPaletteDTO);
-		return ResponseEntity.ok()
-				.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, siteColorPaletteDTO.getId().toString()))
-				.body(result);
+	public ResponseEntity<SiteColorPaletteDTO> updateSiteColorPalette(@PathVariable Long id, @RequestBody SiteColorPaletteDTO siteColorPaletteDTO) throws URISyntaxException {
+		SiteColorPaletteDTO result = siteColorPaletteService.save(id, siteColorPaletteDTO);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 	/**
@@ -102,31 +85,11 @@ public class SiteColorPaletteResource {
 	@Timed
 	public ResponseEntity<SiteColorPaletteDTO> getAllSiteColorPalettes(@PathVariable Long id) {
 		log.debug("REST request to get a page of SiteColorPalettes");
-		SiteColorPaletteDTO sitePalette = siteColorPaletteService.findFooterBySiteId(id);
+		SiteColorPaletteDTO sitePalette = siteColorPaletteService.findOne(id);
 		return new ResponseEntity<>(sitePalette, HttpStatus.OK);
 	}
 
-	@PostMapping("/site/{id}/color-palette")
-	public ResponseEntity<SiteColorPaletteDTO> createFooterEntity(@PathVariable Long id) {
-		return null;
-	}
-
-	/**
-	 * GET /site-color-palettes/:id : get the "id" siteColorPalette.
-	 *
-	 * @param id
-	 *            the id of the siteColorPaletteDTO to retrieve
-	 * @return the ResponseEntity with status 200 (OK) and with body the
-	 *         siteColorPaletteDTO, or with status 404 (Not Found)
-	 */
-	@GetMapping("/site-color-palettes/{id}")
-	@Timed
-	public ResponseEntity<SiteColorPaletteDTO> getSiteColorPalette(@PathVariable Long id) {
-		log.debug("REST request to get SiteColorPalette : {}", id);
-		Optional<SiteColorPaletteDTO> siteColorPaletteDTO = siteColorPaletteService.findOne(id);
-		return ResponseUtil.wrapOrNotFound(siteColorPaletteDTO);
-	}
-
+	
 	/**
 	 * DELETE /site-color-palettes/:id : delete the "id" siteColorPalette.
 	 *
@@ -134,7 +97,7 @@ public class SiteColorPaletteResource {
 	 *            the id of the siteColorPaletteDTO to delete
 	 * @return the ResponseEntity with status 200 (OK)
 	 */
-	@DeleteMapping("/site-color-palettes/{id}")
+	@DeleteMapping("/site/{id}/color-palette")
 	@Timed
 	public ResponseEntity<Void> deleteSiteColorPalette(@PathVariable Long id) {
 		log.debug("REST request to delete SiteColorPalette : {}", id);

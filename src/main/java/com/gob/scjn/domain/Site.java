@@ -52,15 +52,15 @@ public class Site implements Serializable {
 	@Column(name = "subtitle")
 	private String subtitle;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "palette_id")
 	private SiteColorPalette palette;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "footer_id")
 	private SiteFooter footer;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "menu_id")
 	private Menu menu;
 
@@ -246,9 +246,5 @@ public class Site implements Serializable {
 				+ ", subtitle=" + subtitle + ", palette=" + palette + ", footer=" + footer + ", menu=" + menu
 				+ ", event=" + event + ", sitePages=" + sitePages + "]";
 	}
-
-	
-	
-	
 
 }

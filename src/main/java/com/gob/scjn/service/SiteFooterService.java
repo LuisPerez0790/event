@@ -2,11 +2,6 @@ package com.gob.scjn.service;
 
 import com.gob.scjn.service.dto.SiteFooterDTO;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
-
 /**
  * Service Interface for managing SiteFooter.
  */
@@ -15,32 +10,23 @@ public interface SiteFooterService {
     /**
      * Save a siteFooter.
      *
-     * @param siteFooterDTO the entity to save
+     * @param site id & siteFooterDTO the entity to save
      * @return the persisted entity
      */
-    SiteFooterDTO save(SiteFooterDTO siteFooterDTO);
+    SiteFooterDTO save(Long id, SiteFooterDTO siteFooterDTO);
 
     /**
-     * Get all the siteFooters.
+     * Get footer related to site id.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<SiteFooterDTO> findAll(Pageable pageable);
-
-
-    /**
-     * Get the "id" siteFooter.
-     *
-     * @param id the id of the entity
+     * @param id the id of the site
      * @return the entity
      */
-    Optional<SiteFooterDTO> findOne(Long id);
+    SiteFooterDTO findOne(Long id);
 
     /**
-     * Delete the "id" siteFooter.
+     * Delete the site footer.
      *
-     * @param id the id of the entity
+     * @param id the id of the site
      */
     void delete(Long id);
 }

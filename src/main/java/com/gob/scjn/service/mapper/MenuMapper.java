@@ -11,6 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {MenuItemsMapper.class})
 public interface MenuMapper extends EntityMapper<MenuDTO, Menu> {
 
+	
     Menu toEntity(MenuDTO menuDTO);
 
     default Menu fromId(Long id) {
