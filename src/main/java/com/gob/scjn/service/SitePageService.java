@@ -12,35 +12,41 @@ import java.util.Optional;
  */
 public interface SitePageService {
 
-    /**
-     * Save a sitePage.
-     *
-     * @param sitePageDTO the entity to save
-     * @return the persisted entity
-     */
-    SitePageDTO save(SitePageDTO sitePageDTO);
-
-    /**
-     * Get all the sitePages.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<SitePageDTO> findAll(Pageable pageable);
+	/**
+	 * Save a sitePage.
+	 *
+	 * @param sitePageDTO
+	 *            the entity to save
+	 * @return the persisted entity
+	 */
+	SitePageDTO save(Long id, SitePageDTO sitePageDTO);
+	
+	SitePageDTO save(Long id, Long pageId, SitePageDTO sitePageDTO);
 
 
-    /**
-     * Get the "id" sitePage.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    Optional<SitePageDTO> findOne(Long id);
+	/**
+	 * Get all the sitePages.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the list of entities
+	 */
+	Page<SitePageDTO> findAll(Pageable pageable);
 
-    /**
-     * Delete the "id" sitePage.
-     *
-     * @param id the id of the entity
-     */
-    void delete(Long id);
+	/**
+	 * Get the "id" sitePage.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 * @return the entity
+	 */
+	Optional<SitePageDTO> findOne(Long id, Long pageId);
+
+	/**
+	 * Delete the "id" sitePage.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 */
+	void delete(Long id, Long pageId);
 }

@@ -1,20 +1,20 @@
 package com.gob.scjn.service.impl;
 
-import com.gob.scjn.service.SitePageService;
-import com.gob.scjn.domain.SitePage;
-import com.gob.scjn.repository.SitePageRepository;
-import com.gob.scjn.service.dto.SitePageDTO;
-import com.gob.scjn.service.mapper.SitePageMapper;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.util.Optional;
+import com.gob.scjn.domain.SitePage;
+import com.gob.scjn.repository.SitePageRepository;
+import com.gob.scjn.service.SitePageService;
+import com.gob.scjn.service.dto.SitePageDTO;
+import com.gob.scjn.service.mapper.SitePageMapper;
+import com.gob.scjn.web.rest.errors.BadRequestAlertException;
 /**
  * Service Implementation for managing SitePage.
  */
@@ -40,8 +40,20 @@ public class SitePageServiceImpl implements SitePageService {
      * @return the persisted entity
      */
     @Override
-    public SitePageDTO save(SitePageDTO sitePageDTO) {
-        log.debug("Request to save SitePage : {}", sitePageDTO);
+    public SitePageDTO save(Long id, SitePageDTO sitePageDTO) {
+     	log.debug("Request to save SitePage : {}", sitePageDTO);
+     	sitePageDTO.setSiteId(id);
+        SitePage sitePage = sitePageMapper.toEntity(sitePageDTO);
+        sitePage = sitePageRepository.save(sitePage);
+        return sitePageMapper.toDto(sitePage);
+    }
+    
+    
+    @Override
+    public SitePageDTO save(Long id, Long pageId, SitePageDTO sitePageDTO) {
+     	log.debug("Request to save SitePage : {}", sitePageDTO);
+     	sitePageDTO.setSiteId(id);
+     	sitePageDTO.setId(pageId);
         SitePage sitePage = sitePageMapper.toEntity(sitePageDTO);
         sitePage = sitePageRepository.save(sitePage);
         return sitePageMapper.toDto(sitePage);
@@ -70,7 +82,7 @@ public class SitePageServiceImpl implements SitePageService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<SitePageDTO> findOne(Long id) {
+    public Optional<SitePageDTO> findOne(Long id, Long pageId) {
         log.debug("Request to get SitePage : {}", id);
         return sitePageRepository.findById(id)
             .map(sitePageMapper::toDto);
@@ -82,8 +94,13 @@ public class SitePageServiceImpl implements SitePageService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, Long pageId) {
         log.debug("Request to delete SitePage : {}", id);
         sitePageRepository.deleteById(id);
     }
+    
+    public void validateSite(Long pageId) {
+    	sitePageRepository.findBySiteId(pageId).orElseThrow(() -> new BadRequestAlertException("No site found","Site Page","404"));
+    }
+
 }

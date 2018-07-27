@@ -11,10 +11,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {SitePageMapper.class})
 public interface SitePageLanguageMapper extends EntityMapper<SitePageLanguageDTO, SitePageLanguage> {
 
-    @Mapping(source = "sitePage.id", target = "sitePageId")
     SitePageLanguageDTO toDto(SitePageLanguage sitePageLanguage);
 
-    @Mapping(source = "sitePageId", target = "sitePage")
     SitePageLanguage toEntity(SitePageLanguageDTO sitePageLanguageDTO);
 
     default SitePageLanguage fromId(Long id) {

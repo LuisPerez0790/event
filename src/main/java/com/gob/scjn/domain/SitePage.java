@@ -6,11 +6,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -52,10 +54,11 @@ public class SitePage implements Serializable {
     @JsonIgnoreProperties("sitePages")
     private Site site;
 
-    @OneToMany(mappedBy = "sitePage")
-    private Set<SitePageLanguage> pages = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="site_page_id")
+    private Set<SitePageLanguage> languages = new HashSet<>();
 
-    @OneToMany(mappedBy = "sitePage")
+	@OneToMany(mappedBy = "sitePage")
     private Set<CMS> cms = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -159,28 +162,22 @@ public class SitePage implements Serializable {
     }
 
     public Set<SitePageLanguage> getPages() {
-        return pages;
+        return languages;
     }
 
     public SitePage pages(Set<SitePageLanguage> sitePageLanguages) {
-        this.pages = sitePageLanguages;
-        return this;
-    }
-
-    public SitePage addPage(SitePageLanguage sitePageLanguage) {
-        this.pages.add(sitePageLanguage);
-        sitePageLanguage.setSitePage(this);
+        this.languages = sitePageLanguages;
         return this;
     }
 
     public SitePage removePage(SitePageLanguage sitePageLanguage) {
-        this.pages.remove(sitePageLanguage);
+        this.languages.remove(sitePageLanguage);
         sitePageLanguage.setSitePage(null);
         return this;
     }
 
     public void setPages(Set<SitePageLanguage> sitePageLanguages) {
-        this.pages = sitePageLanguages;
+        this.languages = sitePageLanguages;
     }
 
     public Set<CMS> getCms() {
@@ -207,6 +204,14 @@ public class SitePage implements Serializable {
     public void setCms(Set<CMS> cMS) {
         this.cms = cMS;
     }
+    
+    public Set<SitePageLanguage> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(Set<SitePageLanguage> languages) {
+		this.languages = languages;
+	}
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -229,16 +234,12 @@ public class SitePage implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "SitePage{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", menuEntry='" + getMenuEntry() + "'" +
-            ", order=" + getOrder() +
-            ", status='" + isStatus() + "'" +
-            ", slug='" + getSlug() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "SitePage [id=" + id + ", creationDate=" + creationDate + ", updatedDate=" + updatedDate + ", menuEntry="
+				+ menuEntry + ", order=" + order + ", status=" + status + ", slug=" + slug + ", site=" + site
+				+ ", languages=" + languages + ", cms=" + cms + "]";
+	}
+
+    
 }

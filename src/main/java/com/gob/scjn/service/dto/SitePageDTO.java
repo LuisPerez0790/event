@@ -1,8 +1,10 @@
 package com.gob.scjn.service.dto;
 
-import java.time.Instant;
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the SitePage entity.
@@ -24,8 +26,10 @@ public class SitePageDTO implements Serializable {
     private String slug;
 
     private Long siteId;
+    
+    private Set<SitePageLanguageDTO> languages = new HashSet<>();
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -88,6 +92,14 @@ public class SitePageDTO implements Serializable {
     public void setSiteId(Long siteId) {
         this.siteId = siteId;
     }
+    
+    public Set<SitePageLanguageDTO> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(Set<SitePageLanguageDTO> languages) {
+		this.languages = languages;
+	}
 
     @Override
     public boolean equals(Object o) {
@@ -110,17 +122,12 @@ public class SitePageDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "SitePageDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", menuEntry='" + getMenuEntry() + "'" +
-            ", order=" + getOrder() +
-            ", status='" + isStatus() + "'" +
-            ", slug='" + getSlug() + "'" +
-            ", site=" + getSiteId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "SitePageDTO [id=" + id + ", creationDate=" + creationDate + ", updatedDate=" + updatedDate
+				+ ", menuEntry=" + menuEntry + ", order=" + order + ", status=" + status + ", slug=" + slug
+				+ ", siteId=" + siteId + ", languages=" + languages + "]";
+	}
+
+    
 }
