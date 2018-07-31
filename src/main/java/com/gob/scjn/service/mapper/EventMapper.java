@@ -8,21 +8,22 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Event and its DTO EventDTO.
  */
-@Mapper(componentModel = "spring", uses = {VenueMapper.class, SiteMapper.class, EventUserMapper.class})
+@Mapper(componentModel = "spring", uses = { EventLanguageMapper.class, VenueMapper.class, SiteMapper.class,
+		EventUserMapper.class })
 public interface EventMapper extends EntityMapper<EventDTO, Event> {
 
-    EventDTO toDto(Event event);
+	EventDTO toDto(Event event);
 
-    @Mapping(target = "activities", ignore = true)
-    @Mapping(target = "cms", ignore = true)
-    Event toEntity(EventDTO eventDTO);
+	@Mapping(target = "activities", ignore = true)
+	@Mapping(target = "cms", ignore = true)
+	Event toEntity(EventDTO eventDTO);
 
-    default Event fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Event event = new Event();
-        event.setId(id);
-        return event;
-    }
+	default Event fromId(Long id) {
+		if (id == null) {
+			return null;
+		}
+		Event event = new Event();
+		event.setId(id);
+		return event;
+	}
 }

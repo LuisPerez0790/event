@@ -28,9 +28,8 @@ public class EventDTO implements Serializable {
 
     private String acronym;
 
-    private Set<EventUserDTO> eventUsers = new HashSet<>();
     
-    private Set<EventLanguage> languages = new HashSet<>();
+    private Set<EventLanguageDTO> languages = new HashSet<>();
 
     
 	public Long getId() {
@@ -88,20 +87,12 @@ public class EventDTO implements Serializable {
     public void setAcronym(String acronym) {
         this.acronym = acronym;
     }
-
-    public Set<EventUserDTO> getEventUsers() {
-        return eventUsers;
-    }
-
-    public void setEventUsers(Set<EventUserDTO> eventUsers) {
-        this.eventUsers = eventUsers;
-    }
-    
-    public Set<EventLanguage> getLanguages() {
+  
+    public Set<EventLanguageDTO> getLanguages() {
 		return languages;
 	}
 
-	public void setLanguages(Set<EventLanguage> languages) {
+	public void setLanguages(Set<EventLanguageDTO> languages) {
 		this.languages = languages;
 	}
 
@@ -129,8 +120,10 @@ public class EventDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "EventDTO [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", url=" + url
-				+ ", imageUrl=" + imageUrl + ", enabled=" + enabled + ", acronym=" + acronym + ", eventUsers=" + eventUsers + ", languages=" + languages + "]";
+				+ ", imageUrl=" + imageUrl + ", enabled=" + enabled + ", acronym=" + acronym + ", languages="
+				+ languages + "]";
 	}
+
 
     
 }
