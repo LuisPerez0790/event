@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -48,6 +49,9 @@ public class Event implements Serializable {
 
 	@Column(name = "acronym")
 	private String acronym;
+
+	@OneToOne(mappedBy = "event")
+	private Venue venue;
 
 	@OneToMany(mappedBy = "event")
 	private Set<Activity> activities = new HashSet<>();

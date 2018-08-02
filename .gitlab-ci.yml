@@ -1,0 +1,80 @@
+image: 172.16.54.225:6000/gitlab/jhipster-ci:latest
+
+variables:
+    DOCKER_DAEMON_ARGS: "--insecure-registry 172.16.54.225:6000"
+    CONTAINER_IMAGE_NAME: 172.16.54.225:6000/microservices/event-v2
+    CONTAINER_TEST_IMAGE: "${CONTAINER_IMAGE_NAME}:${CI_BUILD_REF_NAME}"
+    CONTAINER_RELEASE_IMAGE: "${CONTAINER_IMAGE_NAME}:${CI_BUILD_REF_NAME}"
+    CONTAINER_TAG_IMAGE: "${CONTAINER_IMAGE_NAME}:${CI_BUILD_TAG}"
+
+cache:
+    key: "$CI_BUILD_REF_NAME"
+    paths:
+        - node_modules
+        - .maven
+stages:
+    - build
+    - test
+    - package
+    - release
+
+before_script:
+    - export MAVEN_USER_HOME=`pwd`/.maven
+    - chmod +x mvnw
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN 172.16.54.225:6000
+
+maven-build:
+    stage: build
+    script: ./mvnw compile --quiet --batch-mode -Dmaven.repo.local=$MAVEN_USER_HOME
+
+maven-test:
+    stage: test
+    script:
+        - ./mvnw test -Dmaven.repo.local=$MAVEN_USER_HOME
+    artifacts:
+        paths:
+            - target/surefire-reports/*
+gatling-test:
+    stage: test
+    allow_failure: true
+    script:
+        - ./mvnw gatling:execute --quiet --batch-mode -Dmaven.repo.local=$MAVEN_USER_HOME
+    before_script:
+        - ./mvnw &
+    artifacts:
+        paths:
+            - target/gatling/*
+maven-package:
+    stage: package
+    script:
+        - ./mvnw --quiet --batch-mode versions:set -DnewVersion=$CI_BUILD_REF_NAME
+        - ./mvnw --quiet --batch-mode package -Pprod dockerfile:build -DskipTests -Dmaven.repo.local=$MAVEN_USER_HOME
+        - docker tag event-v2 $CONTAINER_IMAGE_NAME:$CI_BUILD_REF_NAME
+        - docker push $CONTAINER_IMAGE_NAME:$CI_BUILD_REF_NAME
+    artifacts:
+        paths:
+            - target/*.war
+
+release-image:
+    stage: release
+    script:
+        - ./mvnw --quiet --batch-mode versions:set -DnewVersion=$CI_BUILD_REF_NAME
+        - ./mvnw --quiet --batch-mode package -Pprod dockerfile:build -DskipTests -Dmaven.repo.local=$MAVEN_USER_HOME
+        - docker tag event-v2 $CONTAINER_RELEASE_IMAGE
+        - docker push $CONTAINER_RELEASE_IMAGE
+        - docker tag $CONTAINER_RELEASE_IMAGE $CONTAINER_IMAGE_NAME:latest
+        - docker push $CONTAINER_IMAGE_NAME:latest
+    only:
+        - master
+
+tag-image:
+    stage: release
+    script:
+        - ./mvnw --quiet --batch-mode versions:set -DnewVersion=$CI_BUILD_REF_NAME
+        - ./mvnw --quiet --batch-mode package -Pprod dockerfile:build -DskipTests -Dmaven.repo.local=$MAVEN_USER_HOME
+        - docker tag event-v2 $CONTAINER_RELEASE_IMAGE
+        - docker push $CONTAINER_RELEASE_IMAGE
+        - docker tag $CONTAINER_RELEASE_IMAGE $CONTAINER_IMAGE_NAME:latest
+        - docker push $CONTAINER_IMAGE_NAME:latest
+    only:
+        - tag

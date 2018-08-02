@@ -26,7 +26,7 @@ import java.util.Optional;
  * REST controller for managing Activity.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/site/{siteid}")
 public class ActivityResource {
 
 	private final Logger log = LoggerFactory.getLogger(ActivityResource.class);
@@ -52,12 +52,13 @@ public class ActivityResource {
 	 */
 	@PostMapping("/activities")
 	@Timed
-	public ResponseEntity<ActivityDTO> createActivity(@RequestBody ActivityDTO activityDTO) throws URISyntaxException {
+	public ResponseEntity<ActivityDTO> createActivity(@PathVariable Long siteid, @RequestBody ActivityDTO activityDTO)
+			throws URISyntaxException {
 		log.debug("REST request to save Activity : {}", activityDTO);
 		if (activityDTO.getId() != null) {
 			throw new BadRequestAlertException("A new activity cannot already have an ID", ENTITY_NAME, "idexists");
 		}
-		ActivityDTO result = activityService.save(activityDTO);
+		ActivityDTO result = activityService.save(siteid, activityDTO);
 		return ResponseEntity.created(new URI("/api/activities/" + result.getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
 	}
@@ -76,12 +77,13 @@ public class ActivityResource {
 	 */
 	@PutMapping("/activities")
 	@Timed
-	public ResponseEntity<ActivityDTO> updateActivity(@RequestBody ActivityDTO activityDTO) throws URISyntaxException {
+	public ResponseEntity<ActivityDTO> updateActivity(@PathVariable Long siteid, @RequestBody ActivityDTO activityDTO)
+			throws URISyntaxException {
 		log.debug("REST request to update Activity : {}", activityDTO);
 		if (activityDTO.getId() == null) {
 			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 		}
-		ActivityDTO result = activityService.save(activityDTO);
+		ActivityDTO result = activityService.save(siteid, activityDTO);
 		return ResponseEntity.ok()
 				.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, activityDTO.getId().toString())).body(result);
 	}
@@ -96,9 +98,9 @@ public class ActivityResource {
 	 */
 	@GetMapping("/activities")
 	@Timed
-	public ResponseEntity<List<ActivityDTO>> getAllActivities(Pageable pageable) {
+	public ResponseEntity<List<ActivityDTO>> getAllActivities(@PathVariable Long siteid, Pageable pageable) {
 		log.debug("REST request to get a page of Activities");
-		Page<ActivityDTO> page = activityService.findAll(pageable);
+		Page<ActivityDTO> page = activityService.findAll(siteid, pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/activities");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
@@ -111,11 +113,11 @@ public class ActivityResource {
 	 * @return the ResponseEntity with status 200 (OK) and with body the
 	 *         activityDTO, or with status 404 (Not Found)
 	 */
-	@GetMapping("/activities/{id}")
+	@GetMapping("/activities/{ActivityId}")
 	@Timed
-	public ResponseEntity<ActivityDTO> getActivity(@PathVariable Long id) {
-		log.debug("REST request to get Activity : {}", id);
-		Optional<ActivityDTO> activityDTO = activityService.findOne(id);
+	public ResponseEntity<ActivityDTO> getActivity(@PathVariable Long siteid, @PathVariable Long ActivityId) {
+		log.debug("REST request to get Activity : {}", ActivityId);
+		Optional<ActivityDTO> activityDTO = activityService.findOne(siteid, ActivityId);
 		return ResponseUtil.wrapOrNotFound(activityDTO);
 	}
 
@@ -126,18 +128,11 @@ public class ActivityResource {
 	 *            the id of the activityDTO to delete
 	 * @return the ResponseEntity with status 200 (OK)
 	 */
-	@DeleteMapping("/activities/{id}")
+	@DeleteMapping("/activities/{ActivityId}")
 	@Timed
-	public ResponseEntity<Void> deleteActivity(@PathVariable Long id) {
-		log.debug("REST request to delete Activity : {}", id);
-		activityService.delete(id);
-		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-	}
-
-	@GetMapping("/event/{id}/activities")
-	@Timed
-	public ResponseEntity<List<ActivityDTO>> getAllActivitiesFromEvent(@PathVariable Long id, Pageable pageable) {
-		Page<ActivityDTO> page = activityService.findAllByEventId(id, pageable);
-		return new ResponseEntity<>(page.getContent(), HttpStatus.OK);
+	public ResponseEntity<Void> deleteActivity(@PathVariable Long siteid, @PathVariable Long ActivityId) {
+		log.debug("REST request to delete Activity : {}", ActivityId);
+		activityService.delete(siteid, ActivityId);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, ActivityId.toString())).build();
 	}
 }

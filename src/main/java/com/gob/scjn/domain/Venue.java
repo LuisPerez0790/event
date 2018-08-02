@@ -1,10 +1,17 @@
 package com.gob.scjn.domain;
 
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * A Venue.
@@ -39,7 +46,11 @@ public class Venue implements Serializable {
 
     @Column(name = "description")
     private String description;
-
+    
+    @OneToOne
+    @JoinColumn(name= "event_id")
+    private Event event;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

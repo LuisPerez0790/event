@@ -75,6 +75,8 @@ entity Site{
     status PageStatus
 }
 
+
+
 entity SiteColorPalette{
 	primary String,
 	secondary String,
@@ -106,23 +108,41 @@ entity SiteFooter {
 	googleMaps String
 }
 
+entity Menu{
+
+}
+
+entity MenuItems{
+	weight Long,
+	url String
+}
+
+entity MenuItemsLanguage{
+	name String,
+    language Language
+}
+
 relationship OneToMany{
 	Event{activity} to Activity
     Event{languages} to EventLanguage
     Activity{languages} to ActivityLanguage
     Site{sitePage} to SitePage
     SitePage{page} to SitePageLanguage
+    SitePage{cms} to CMS
     Event{cms} to CMS
     Activity{cms} to CMS
     EventUser{cms} to CMS
-    SitePage{cms} to CMS
+   	MenuItems{languages} to MenuItemsLanguage
+    Menu{items} to MenuItems
+    
 }
 
 relationship OneToOne{
- 	Event{venue} to Venue
-	Event{site} to Site
-	Site{palette} to SiteColorPalette
-    Site{footer} to SiteFooter
+	Venue{event} to Event{venue}
+	Site{event} to Event{site}
+	SiteColorPalette{site} to Site{palette}
+    SiteFooter{site} to Site{footer}
+    Site{menus} to Menu{site} 
 }
 
 relationship ManyToMany{

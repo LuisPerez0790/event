@@ -11,8 +11,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface VenueMapper extends EntityMapper<VenueDTO, Venue> {
 
-
-
     default Venue fromId(Long id) {
         if (id == null) {
             return null;

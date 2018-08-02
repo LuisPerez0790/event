@@ -27,9 +27,10 @@ public class EventDTO implements Serializable {
     private Boolean enabled;
 
     private String acronym;
-
     
-    private Set<EventLanguageDTO> languages = new HashSet<>();
+    private VenueDTO venue;
+
+	private Set<EventLanguageDTO> languages = new HashSet<>();
 
     
 	public Long getId() {
@@ -94,6 +95,14 @@ public class EventDTO implements Serializable {
 
 	public void setLanguages(Set<EventLanguageDTO> languages) {
 		this.languages = languages;
+	}
+	
+	public VenueDTO getVenue() {
+		return venue;
+	}
+
+	public void setVenue(VenueDTO venue) {
+		this.venue = venue;
 	}
 
     @Override

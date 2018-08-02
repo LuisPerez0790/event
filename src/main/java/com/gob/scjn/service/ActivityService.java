@@ -12,37 +12,38 @@ import java.util.Optional;
  */
 public interface ActivityService {
 
-    /**
-     * Save a activity.
-     *
-     * @param activityDTO the entity to save
-     * @return the persisted entity
-     */
-    ActivityDTO save(ActivityDTO activityDTO);
+	/**
+	 * Save a activity.
+	 *
+	 * @param activityDTO
+	 *            the entity to save
+	 * @return the persisted entity
+	 */
+	ActivityDTO save(Long siteid, ActivityDTO activityDTO);
 
-    /**
-     * Get all the activities.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<ActivityDTO> findAll(Pageable pageable);
+	/**
+	 * Get all the activities.
+	 *
+	 * @param pageable
+	 *            the pagination information
+	 * @return the list of entities
+	 */
+	Page<ActivityDTO> findAll(Long siteid, Pageable pageable);
 
+	/**
+	 * Get the "id" activity.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 * @return the entity
+	 */
+	Optional<ActivityDTO> findOne(Long siteid, Long id);
 
-    /**
-     * Get the "id" activity.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    Optional<ActivityDTO> findOne(Long id);
-
-    /**
-     * Delete the "id" activity.
-     *
-     * @param id the id of the entity
-     */
-    void delete(Long id);
-
-	Page<ActivityDTO> findAllByEventId(Long id, Pageable pageable);
+	/**
+	 * Delete the "id" activity.
+	 *
+	 * @param id
+	 *            the id of the entity
+	 */
+	void delete(Long siteid, Long id);
 }
