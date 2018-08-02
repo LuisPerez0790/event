@@ -1,13 +1,12 @@
 package com.gob.scjn.service.dto;
 
-import java.time.Instant;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.gob.scjn.domain.ActivityLanguage;
-import com.gob.scjn.domain.EventLanguage;
 
 /**
  * A DTO for the Activity entity.

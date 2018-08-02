@@ -2,14 +2,18 @@ package com.gob.scjn.domain;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,12 +30,6 @@ public class Venue implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "address")
-    private String address;
-
     @Column(name = "image_url")
     private String imageUrl;
 
@@ -43,47 +41,22 @@ public class Venue implements Serializable {
 
     @Column(name = "google_maps")
     private String googleMaps;
-
-    @Column(name = "description")
-    private String description;
     
     @OneToOne
     @JoinColumn(name= "event_id")
     private Event event;
     
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="venue_id")
+    private Set<VenueLanguage> languages = new HashSet<>();
+    
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Venue name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public Venue address(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getImageUrl() {
@@ -138,18 +111,21 @@ public class Venue implements Serializable {
         this.googleMaps = googleMaps;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public Event getEvent() {
+		return event;
+	}
 
-    public Venue description(String description) {
-        this.description = description;
-        return this;
-    }
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+	
+	public Set<VenueLanguage> getLanguages() {
+		return languages;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setLanguages(Set<VenueLanguage> languages) {
+		this.languages = languages;
+	}
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -172,17 +148,11 @@ public class Venue implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "Venue{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", url='" + getUrl() + "'" +
-            ", googleMaps='" + getGoogleMaps() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "Venue [id=" + id + ", imageUrl=" + imageUrl + ", phone=" + phone + ", url=" + url + ", googleMaps="
+				+ googleMaps + ", event=" + event + ", languages=" + languages + "]";
+	}
+
+
 }

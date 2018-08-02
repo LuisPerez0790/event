@@ -1,125 +1,110 @@
 package com.gob.scjn.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the Venue entity.
  */
 public class VenueDTO implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    private String name;
+	private String imageUrl;
 
-    private String address;
+	private String phone;
 
-    private String imageUrl;
+	private String url;
 
-    private String phone;
+	private String googleMaps;
 
-    private String url;
+	private Long eventId;
 
-    private String googleMaps;
+	private Set<VenueLanguageDTO> languages = new HashSet<>();
 
-    private String description;
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public String getGoogleMaps() {
+		return googleMaps;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setGoogleMaps(String googleMaps) {
+		this.googleMaps = googleMaps;
+	}
+	
+	public Long getEventId() {
+		return eventId;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setEventId(Long eventId) {
+		this.eventId = eventId;
+	}
+	
+	public Set<VenueLanguageDTO> getLanguages() {
+		return languages;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public void setLanguages(Set<VenueLanguageDTO> languages) {
+		this.languages = languages;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-    public String getGoogleMaps() {
-        return googleMaps;
-    }
+		VenueDTO venueDTO = (VenueDTO) o;
+		if (venueDTO.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), venueDTO.getId());
+	}
 
-    public void setGoogleMaps(String googleMaps) {
-        this.googleMaps = googleMaps;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	@Override
+	public String toString() {
+		return "VenueDTO [id=" + id + ", imageUrl=" + imageUrl + ", phone=" + phone + ", url=" + url + ", googleMaps="
+				+ googleMaps + ", eventId=" + eventId + ", languages=" + languages + "]";
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        VenueDTO venueDTO = (VenueDTO) o;
-        if (venueDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), venueDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "VenueDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", url='" + getUrl() + "'" +
-            ", googleMaps='" + getGoogleMaps() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
 }

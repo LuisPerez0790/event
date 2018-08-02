@@ -109,13 +109,10 @@ public class VenueResourceIntTest {
      */
     public static Venue createEntity(EntityManager em) {
         Venue venue = new Venue()
-            .name(DEFAULT_NAME)
-            .address(DEFAULT_ADDRESS)
             .imageUrl(DEFAULT_IMAGE_URL)
             .phone(DEFAULT_PHONE)
             .url(DEFAULT_URL)
-            .googleMaps(DEFAULT_GOOGLE_MAPS)
-            .description(DEFAULT_DESCRIPTION);
+            .googleMaps(DEFAULT_GOOGLE_MAPS);
         return venue;
     }
 
@@ -140,13 +137,10 @@ public class VenueResourceIntTest {
         List<Venue> venueList = venueRepository.findAll();
         assertThat(venueList).hasSize(databaseSizeBeforeCreate + 1);
         Venue testVenue = venueList.get(venueList.size() - 1);
-        assertThat(testVenue.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testVenue.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testVenue.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
         assertThat(testVenue.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testVenue.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testVenue.getGoogleMaps()).isEqualTo(DEFAULT_GOOGLE_MAPS);
-        assertThat(testVenue.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -230,13 +224,10 @@ public class VenueResourceIntTest {
         // Disconnect from session so that the updates on updatedVenue are not directly saved in db
         em.detach(updatedVenue);
         updatedVenue
-            .name(UPDATED_NAME)
-            .address(UPDATED_ADDRESS)
             .imageUrl(UPDATED_IMAGE_URL)
             .phone(UPDATED_PHONE)
             .url(UPDATED_URL)
-            .googleMaps(UPDATED_GOOGLE_MAPS)
-            .description(UPDATED_DESCRIPTION);
+            .googleMaps(UPDATED_GOOGLE_MAPS);
         VenueDTO venueDTO = venueMapper.toDto(updatedVenue);
 
         restVenueMockMvc.perform(put("/api/venues")
@@ -248,13 +239,10 @@ public class VenueResourceIntTest {
         List<Venue> venueList = venueRepository.findAll();
         assertThat(venueList).hasSize(databaseSizeBeforeUpdate);
         Venue testVenue = venueList.get(venueList.size() - 1);
-        assertThat(testVenue.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testVenue.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testVenue.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
         assertThat(testVenue.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testVenue.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVenue.getGoogleMaps()).isEqualTo(UPDATED_GOOGLE_MAPS);
-        assertThat(testVenue.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test

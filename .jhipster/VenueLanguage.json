@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "languages",
+            "otherEntityName": "venue",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "language",
+            "fieldType": "Language",
+            "fieldValues": "ENGLISH,FRENCH,SPANISH,PORTUGUESE,GERMAN,ITALIAN,RUSSIAN"
+        }
+    ],
+    "changelogDate": "20180802220737",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "venue_language",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no",
+    "microserviceName": "event"
+}

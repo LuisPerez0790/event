@@ -48,7 +48,7 @@ public class ActivityServiceImpl implements ActivityService {
 	 */
 	@Override
 	public ActivityDTO save(Long siteid, ActivityDTO activityDTO) {
-		validateSite(siteid);
+		validateEvent(siteid);
 		activityDTO.setEventId(siteid);
 		Activity activity = activityMapper.toEntity(activityDTO);
 		activity = activityRepository.save(activity);
@@ -66,7 +66,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Transactional(readOnly = true)
 	public Page<ActivityDTO> findAll(Long siteid, Pageable pageable) {
 		log.debug("Request to get all Activities");
-		validateSite(siteid);
+		validateEvent(siteid);
 		return activityRepository.findByEventId(siteid, pageable).map(activityMapper::toDto);
 	}
 
@@ -81,7 +81,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Transactional(readOnly = true)
 	public Optional<ActivityDTO> findOne(Long siteid, Long id) {
 		log.debug("Request to get Activity : {}", id);
-		validateSite(siteid);
+		validateEvent(siteid);
 		return activityRepository.findById(id).map(activityMapper::toDto);
 	}
 
@@ -94,11 +94,11 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public void delete(Long siteid, Long id) {
 		log.debug("Request to delete Activity : {}", id);
-		validateSite(siteid);
+		validateEvent(siteid);
 		activityRepository.deleteById(id);
 	}
 
-	private void validateSite(Long id) {
+	private void validateEvent(Long id) {
 		this.eventRepository.findById(id).orElseThrow(() -> new SiteNotFoundException());
 	}
 }

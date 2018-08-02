@@ -18,7 +18,7 @@ public interface VenueService {
      * @param venueDTO the entity to save
      * @return the persisted entity
      */
-    VenueDTO save(VenueDTO venueDTO);
+    VenueDTO save(Long eventid, VenueDTO venueDTO);
 
     /**
      * Get all the venues.
@@ -26,7 +26,7 @@ public interface VenueService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<VenueDTO> findAll(Pageable pageable);
+    Page<VenueDTO> findAll(Long eventid, Pageable pageable);
 
 
     /**
@@ -35,12 +35,12 @@ public interface VenueService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<VenueDTO> findOne(Long id);
+    Optional<VenueDTO> findOne(Long eventid, Long id);
 
     /**
      * Delete the "id" venue.
      *
      * @param id the id of the entity
      */
-    void delete(Long id);
+    void delete(Long eventid, Long id);
 }

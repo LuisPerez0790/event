@@ -20,6 +20,7 @@
     <include file="config/liquibase/changelog/20180723204640_added_entity_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180723205134_added_entity_MenuItems.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180723205426_added_entity_MenuItemsLanguage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180802220737_added_entity_VenueLanguage.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180720154257_added_entity_constraints_Event.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180720154258_added_entity_constraints_CMS.xml" relativeToChangelogFile="false"/>
@@ -29,5 +30,6 @@
     <include file="config/liquibase/changelog/20180720154303_added_entity_constraints_Site.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180720154305_added_entity_constraints_SitePage.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180720154306_added_entity_constraints_SitePageLanguage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180802220737_added_entity_constraints_VenueLanguage.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
