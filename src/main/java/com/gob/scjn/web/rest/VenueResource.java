@@ -75,14 +75,12 @@ public class VenueResource {
 	 * @throws URISyntaxException
 	 *             if the Location URI syntax is incorrect
 	 */
-	@PutMapping("/venues")
+	@PutMapping("/venues/{id}")
 	@Timed
-	public ResponseEntity<VenueDTO> updateVenue(@PathVariable Long eventid, @RequestBody VenueDTO venueDTO)
-			throws URISyntaxException {
+	public ResponseEntity<VenueDTO> updateVenue(@PathVariable Long eventid, @PathVariable Long id,
+			@RequestBody VenueDTO venueDTO) throws URISyntaxException {
 		log.debug("REST request to update Venue : {}", venueDTO);
-		if (venueDTO.getId() == null) {
-			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-		}
+		venueDTO.setId(id);
 		VenueDTO result = venueService.save(eventid, venueDTO);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, venueDTO.getId().toString()))
 				.body(result);

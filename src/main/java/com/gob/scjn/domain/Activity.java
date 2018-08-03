@@ -1,4 +1,4 @@
-package com.gob.scjn.domain;
+ package com.gob.scjn.domain;
 
 import java.io.Serializable;
 import java.time.Instant;

@@ -75,14 +75,12 @@ public class ActivityResource {
 	 * @throws URISyntaxException
 	 *             if the Location URI syntax is incorrect
 	 */
-	@PutMapping("/activities")
+	@PutMapping("/activities/{ActivityId}")
 	@Timed
-	public ResponseEntity<ActivityDTO> updateActivity(@PathVariable Long siteid, @RequestBody ActivityDTO activityDTO)
-			throws URISyntaxException {
+	public ResponseEntity<ActivityDTO> updateActivity(@PathVariable Long siteid, @PathVariable Long ActivityId,
+			@RequestBody ActivityDTO activityDTO) throws URISyntaxException {
 		log.debug("REST request to update Activity : {}", activityDTO);
-		if (activityDTO.getId() == null) {
-			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-		}
+		activityDTO.setId(ActivityId);
 		ActivityDTO result = activityService.save(siteid, activityDTO);
 		return ResponseEntity.ok()
 				.headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, activityDTO.getId().toString())).body(result);
@@ -133,6 +131,7 @@ public class ActivityResource {
 	public ResponseEntity<Void> deleteActivity(@PathVariable Long siteid, @PathVariable Long ActivityId) {
 		log.debug("REST request to delete Activity : {}", ActivityId);
 		activityService.delete(siteid, ActivityId);
-		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, ActivityId.toString())).build();
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, ActivityId.toString()))
+				.build();
 	}
 }

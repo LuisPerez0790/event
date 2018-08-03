@@ -46,7 +46,7 @@ public class Venue implements Serializable {
     @JoinColumn(name= "event_id")
     private Event event;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="venue_id")
     private Set<VenueLanguage> languages = new HashSet<>();
     

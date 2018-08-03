@@ -63,13 +63,11 @@ public class VenueLanguageResource {
      * or with status 500 (Internal Server Error) if the venueLanguageDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/venue-languages")
+    @PutMapping("/venue-languages/{id}")
     @Timed
-    public ResponseEntity<VenueLanguageDTO> updateVenueLanguage(@RequestBody VenueLanguageDTO venueLanguageDTO) throws URISyntaxException {
+    public ResponseEntity<VenueLanguageDTO> updateVenueLanguage(@PathVariable Long id, @RequestBody VenueLanguageDTO venueLanguageDTO) throws URISyntaxException {
         log.debug("REST request to update VenueLanguage : {}", venueLanguageDTO);
-        if (venueLanguageDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
+        venueLanguageDTO.setId(id);
         VenueLanguageDTO result = venueLanguageService.save(venueLanguageDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, venueLanguageDTO.getId().toString()))

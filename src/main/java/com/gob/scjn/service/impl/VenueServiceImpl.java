@@ -51,8 +51,6 @@ public class VenueServiceImpl implements VenueService {
 		validateSite(siteid);
 		venueDTO.setEventId(siteid);
 		Venue venue = venueMapper.toEntity(venueDTO);
-		System.out.println("*******************************************");
-		System.out.println(venue);
 		venue = venueRepository.save(venue);
 		return venueMapper.toDto(venue);
 	}
@@ -69,7 +67,7 @@ public class VenueServiceImpl implements VenueService {
 	public Page<VenueDTO> findAll(Long siteid, Pageable pageable) {
 		log.debug("Request to get all Venues");
 		validateSite(siteid);
-		return venueRepository.findAll(pageable).map(venueMapper::toDto);
+		return venueRepository.findByEventId(siteid, pageable).map(venueMapper::toDto);
 	}
 
 	/**
